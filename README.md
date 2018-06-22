@@ -1,4 +1,4 @@
-# gs1-cloud
+# GS1 Cloud GTIN CHECK
 
 Program to CHECK the validity of GTINS/EAN codes against the GS1 Cloud (BETA) CHECK API
 
