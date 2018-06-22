@@ -8,7 +8,7 @@ Put your credentials (email and api-key) in the file credentials.py.
 The API key can be found in the GS1 Cloud user interface under 'Account'
 
 Add your set of GTINS in the file gtins.txt. The program has been tested with up to 500.000 GTINS in one file.
-The GTINS have to be 14 digits long, including leading zero's.
+The GTINS have to be 14 digits long, including leading zero's. The attached file gtins.txt will generate most of the current messages.
 
 Run the program. It will test about 35 GTINS per second.
 
