@@ -17,4 +17,4 @@ Find the output in .\output\Tested_gtins_yyyymmdd_hhmmss.csv
 Also a log file is created as .\output\Tested_gtins_yyyymmdd_hhmmss.log
 
 You can contact your the GS1 Member Organisation in your country for possibilities to participate in the beta-program.
-For more information https://www.gs1.org/services/gs1-cloud
+For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_blank">GS1.org</a>
