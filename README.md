@@ -12,6 +12,7 @@ The GTINS have to be 14 digits long, including leading zero's.
 Run the program. It will test about 35 GTINS per second.
 
 Find the output in .\output\Tested_gtins_yyyymmdd_hhmmss.csv
+
 Also a log file is created as .\output\Tested_gtins_yyyymmdd_hhmmss.log
 
 You can contact your the GS1 Member Organisation in your country for possibilities to participate in the beta-program.
