@@ -1,10 +1,11 @@
-# GS1 Cloud GTIN CHECK
+# GS1 Cloud GTIN CHECK (BETA)
 
 Program to CHECK the validity of GTINS/EAN codes against the GS1 Cloud (BETA) CHECK API
 
 Install the program on your local machine. It's written in Python 3.
 
-Put your credentials (email and api-key) in the file credentials.py
+Put your credentials (email and api-key) in the file credentials.py. 
+The API key can be found in the GS1 Cloud user interface under 'Account'
 
 Add your set of GTINS in the file gtins.txt. The program has been tested with up to 500.000 GTINS in one file.
 The GTINS have to be 14 digits long, including leading zero's.
