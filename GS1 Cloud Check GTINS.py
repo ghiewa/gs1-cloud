@@ -14,6 +14,7 @@ import requests
 from queue import Queue
 from threading import Thread
 import base64
+from pathlib import Path
 import credentials
 
 
@@ -139,8 +140,15 @@ if __name__ == "__main__":
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
 
-    output = open(".\output\Tested_gtins_%s.csv" % timestr, "w", encoding='utf-8')
-    log = open(".\output\Tested_gtins_%s.log" % timestr, "w", encoding='utf-8')
+    output_folder = Path("./output/")
+
+    output_to_open = "Tested_gtins_%s.csv" % timestr
+    log_to_open = "Tested_gtins_%s.log" % timestr
+    
+    #f = open(file_to_open)
+
+    output = open(output_folder / output_to_open, "w", encoding='utf-8')
+    log = open(output_folder / log_to_open, "w", encoding='utf-8')
 
     # Write CSV Header
     output.write("GTIN|STATUS|MESSAGEID|REASON|COMPANY \n")
