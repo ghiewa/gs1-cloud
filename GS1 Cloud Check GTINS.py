@@ -15,6 +15,7 @@ from queue import Queue
 from threading import Thread
 import base64
 from pathlib import Path
+import os
 import credentials
 
 
@@ -139,13 +140,14 @@ if __name__ == "__main__":
 
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
+    
+    if not os.path.exists('output'):
+        os.makedirs('output')
 
     output_folder = Path("./output/")
 
     output_to_open = "Tested_gtins_%s.csv" % timestr
     log_to_open = "Tested_gtins_%s.log" % timestr
-    
-    #f = open(file_to_open)
 
     output = open(output_folder / output_to_open, "w", encoding='utf-8')
     log = open(output_folder / log_to_open, "w", encoding='utf-8')
