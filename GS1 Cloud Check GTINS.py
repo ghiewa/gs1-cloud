@@ -15,6 +15,7 @@ from queue import Queue
 from threading import Thread
 import base64
 from pathlib import Path
+import os
 import credentials
 
 
