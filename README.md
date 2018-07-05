@@ -2,6 +2,7 @@
 
 Program to CHECK the validity of GTINS/EAN codes against the GS1 Cloud (BETA) CHECK API
 
+**Install notes**
 1. Install Python3 on your computer. 
 2. Download the zip with the programfiles on your local machine and unpack and store it in a local map.
 3. Put your credentials (email and api-key) in the file credentials.py. 
