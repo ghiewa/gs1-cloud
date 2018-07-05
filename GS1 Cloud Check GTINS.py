@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
             company = ""
 
-            if 'exception' in x:
+            if 'exception' in check_response:
                 gtin = GTIN_in
                 messageId = check_response["messageId"]
                 status = 0
@@ -121,7 +121,7 @@ if __name__ == "__main__":
                 gtin = check_response["gtin"]
                 messageId = check_response["reason"][0]['messageId']
                 status = check_response["status"]
-                if 'gcpCompanyName' in x:
+                if 'gcpCompanyName' in check_response:
                     company = check_response["gcpCompanyName"]
 
             message_out = next(check_response for check_response in messages if check_response[0] == messageId)[1]
