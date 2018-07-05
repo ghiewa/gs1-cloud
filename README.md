@@ -2,6 +2,9 @@
 
 Program to CHECK the validity of GTINS/EAN codes against the GS1 Cloud (BETA) CHECK API
 
+The GS1 Cloud will be the largest source of trusted product information in the world, making it possible for businesses to meet the expectations of today’s digital world.
+For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_blank">GS1.org</a>.
+
 **Install notes**
 1. Install Python3 on your computer. 
 2. Download the zip with the programfiles on your local machine and unpack and store it in a local map.
@@ -15,4 +18,3 @@ Program to CHECK the validity of GTINS/EAN codes against the GS1 Cloud (BETA) CH
 6. Find the output in .\output\Tested_gtins_yyyymmdd_hhmmss.csv.
    Also a log file is created as .\output\Tested_gtins_yyyymmdd_hhmmss.log
 
-For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_blank">GS1.org</a>.
