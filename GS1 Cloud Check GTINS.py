@@ -109,27 +109,29 @@ if __name__ == "__main__":
         # print(json.dumps(response.text))
 
         if api_status_code in (200, 400):
-            x = json.loads(response.text)
+            check_response = json.loads(response.text)
 
             company = ""
 
             if 'exception' in x:
                 gtin = GTIN_in
-                messageId = x["messageId"]
+                messageId = check_response["messageId"]
                 status = 0
             else:
-                gtin = x["gtin"]
-                messageId = x["reason"][0]['messageId']
-                status = x["status"]
+                gtin = check_response["gtin"]
+                messageId = check_response["reason"][0]['messageId']
+                status = check_response["status"]
                 if 'gcpCompanyName' in x:
-                    company = x["gcpCompanyName"]
+                    company = check_response["gcpCompanyName"]
 
-            message_out = next(x for x in messages if x[0] == messageId)[1]
+            message_out = next(check_response for check_response in messages if check_response[0] == messageId)[1]
 
             print(api_status_code, status, gtin, messageId, message_out, company)
 
             output.write('%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, company))
         else:
+            if api_status_code == 401:
+                print('Full authentication is required to access this resource')
             log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
         return
 
