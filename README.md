@@ -1,6 +1,6 @@
-# GS1 Cloud GTIN CHECK (beta) and GTIN VIEW (expirimental)
+# GS1 Cloud GTIN CHECK (beta) and GTIN VIEW (experimental)
 
-Programs to CHECK the validity of GTINS/EAN codes against the GS1 Cloud (BETA) CHECK API and VIEW the active GTINS from the VIEW API (expirimental)
+Programs to CHECK the validity of GTINS/EAN codes against the GS1 Cloud (BETA) CHECK API and VIEW the active GTINS from the VIEW API (experimental)
 
 The GS1 Cloud will be the largest source of trusted product information in the world, making it possible for businesses to meet the expectations of today’s digital world.
 For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_blank">GS1.org</a>.
@@ -25,7 +25,7 @@ For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_
 
 **VIEW GS1_Cloud_VIEW_GTINS.py**
 Please note: 
-The VIEW API is expirimental and at the moment only available for GS1 member organisations.
+The VIEW API is experimental and at the moment only available for GS1 member organisations.
 Until now you can only view items upload under your account. Therefor many active gtins (from other sources)<br> 
 give a 404 (not found) as result. These are listed in the log file.  
 
