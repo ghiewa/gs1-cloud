@@ -112,7 +112,10 @@ if __name__ == "__main__":
             check_response = json.loads(response.text)
 
             company = ""
+            company_lang = ""
+            gcp_company = ""
 
+            
             if 'exception' in check_response:
                 gtin = GTIN_in
                 messageId = check_response["messageId"]
@@ -121,14 +124,22 @@ if __name__ == "__main__":
                 gtin = check_response["gtin"]
                 messageId = check_response["reason"][0]['messageId']
                 status = check_response["status"]
+                if 'companyName' in check_response:
+                    company = check_response["companyName"][0]["value"]
+                    company_lang = check_response["companyName"][0]["language"]
+                    if company_lang == "":
+                    	company_lang = "xx"
                 if 'gcpCompanyName' in check_response:
-                    company = check_response["gcpCompanyName"]
+                    gcp_company = check_response["gcpCompanyName"]
 
             message_out = next(check_response for check_response in messages if check_response[0] == messageId)[1]
 
-            print(api_status_code, status, gtin, messageId, message_out, company)
+            print(api_status_code, status, gtin, messageId, message_out, gcp_company,company)
 
-            output.write('%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, company))
+            output.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out,gcp_company,company,company_lang))
+
+            if messageId in ("S003","S005"):
+            	active_gtins.write('%s\n' % (gtin))
         else:
             if api_status_code == 401:
                 print('Full authentication is required to access this resource')
@@ -147,15 +158,16 @@ if __name__ == "__main__":
         os.makedirs('output')
 
     output_folder = Path("./output/")
-
-    output_to_open = "Tested_gtins_%s.csv" % timestr
-    log_to_open = "Tested_gtins_%s.log" % timestr
-
+    
+    output_to_open = "check_gtins_%s.csv" % timestr
+    log_to_open = "check_gtins_%s.log" % timestr
+     
     output = open(output_folder / output_to_open, "w", encoding='utf-8')
     log = open(output_folder / log_to_open, "w", encoding='utf-8')
+    active_gtins = open("active_gtins.txt", "w", encoding='utf-8')
 
     # Write CSV Header
-    output.write("GTIN|STATUS|MESSAGEID|REASON|COMPANY \n")
+    output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
 
     # Generate list of GTINS
     with open("gtins.txt", "r") as myfile:
@@ -202,3 +214,4 @@ if __name__ == "__main__":
     output.close()
     myfile.close()
     log.close()
+    active_gtins.close()
