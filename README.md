@@ -29,7 +29,7 @@ The VIEW API is experimental and at the moment only available for GS1 member org
 Until now you can only view items uploaded under your account. Therefor many active gtins (from other sources) 
 give a 404 (not found) as result. These are listed in the log file.  
 
-1. Run the program in the shell program of your OS (..>python GS1_Cloud_CHECK_GTINS.py) or a Python IDE. 
+1. Run the program in the shell program of your OS (..>python GS1_Cloud_VIEW_GTINS.py) or a Python IDE. 
 2. Find the output in .\output\view_gtins_yyyymmdd_hhmmss.csv.<br>
    Also a log file is created as .\output\view_gtins_yyyymmdd_hhmmss.log<br>
 3. View and analyze your results in a spreadsheet or database.
