@@ -26,7 +26,7 @@ For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_
 **VIEW GS1_Cloud_VIEW_GTINS.py**<br>
 Please note:<br>
 The VIEW API is experimental and at the moment only available for GS1 member organisations.
-Until now you can only view items upload under your account. Therefor many active gtins (from other sources)<br> 
+Until now you can only view items upload under your account. Therefor many active gtins (from other sources) 
 give a 404 (not found) as result. These are listed in the log file.  
 
 1. Run the program in the shell program of your OS (..>python GS1_Cloud_CHECK_GTINS.py) or a Python IDE. 
