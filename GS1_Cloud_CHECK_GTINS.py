@@ -149,7 +149,7 @@ if __name__ == "__main__":
 
     gtins = []
     tested = 0
-    poolsize = 100  # seems to be an optimum tested with 5000 gtins
+    poolsize = 100  # seems to be an optimum tested with 5000 gtins for larger sets of gtins this can set higher eg. 150
 
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
@@ -169,6 +169,11 @@ if __name__ == "__main__":
     # Write CSV Header
     output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
 
+    if not os.path.isfile('./gtins.txt'):
+        print("The input file gtins.txt is missing. \n")
+        log.write("The input file gtins.txt is missing. \n")
+        exit()
+
     # Generate list of GTINS
     with open("gtins.txt", "r") as myfile:
         for line in myfile:
@@ -185,14 +190,13 @@ if __name__ == "__main__":
     # makes it possible to cancel the thread pool with an exception when
     # the currently running batch of workers is finished.
     pool.map(check, gtins)
+    
+    # Demonstrates that the main process waited for threads to complete
     pool.wait_completion()
 
-    # Demonstrates that the main process waited for threads to complete
     sec = round((time.time() - starttime))
 
     print("Done")
-    print()
-    print("Pool size: ", poolsize)
     print()
     print("GTINS checked: ", tested)
     print()
