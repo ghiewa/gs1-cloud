@@ -6,7 +6,7 @@ The GS1 Cloud will be the largest source of trusted product information in the w
 For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_blank">GS1.org</a>.
 
 **Install and usage notes**
-1. Install <a href="https://www.python.org/" target="_blank"> on your computer. 
+1. Install <a href="https://www.python.org/" target="_blank">Python 3</a> on your computer. 
 2. Download the zip with the programfiles on your local machine and unpack and store it in a local map.
 3. Put your credentials (email and api-key) in the file credentials.py. 
    The API key can be found in the <a href="https://cloud.gs1.org/gs1-portal/" target="_blank">GS1 Cloud user interface</a> 
