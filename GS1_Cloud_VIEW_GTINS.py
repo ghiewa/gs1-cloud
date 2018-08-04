@@ -121,16 +121,16 @@ if __name__ == "__main__":
                         brand_lang = 'xx'
                     if company_lang == "":
                         company_lang = 'xx'
-            
+
 
                 print(gtin,tm,brand,brand_lang,ld,ld_lang,gpc,company,company_lang,image_url,image_url_lang,ip_gln,ds_gln)
 
-                output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s \n' 
+                output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s \n'
                 % (gtin,tm,brand,brand_lang,ld,ld_lang,gpc,company,company_lang,image_url,image_url_lang,ip_gln,ds_gln))
             else:
                 log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
 
-           
+
         return
 
 
@@ -142,7 +142,7 @@ if __name__ == "__main__":
     timestr = time.strftime("%Y%m%d_%H%M%S")
 
 
-    
+
     if not os.path.exists('output'):
         os.makedirs('output')
 
@@ -183,14 +183,12 @@ if __name__ == "__main__":
 
     print("Done")
     print()
-    print("Pool size: ", poolsize)
-    print()
     print("GTINS viewed: ", tested)
     print()
     print("Time:", str(datetime.timedelta(seconds=sec)))
     print()
     if tested > 0:
-        print("Views per second: ",round(tested/sec,1))
+        print("Views per second: ",round(tested / max(sec,1),1))
 
     log.write('\n')
     log.write("Pool size: %s\n" % poolsize)
@@ -200,7 +198,7 @@ if __name__ == "__main__":
     log.write("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
     log.write('\n')
     if tested >0:
-        log.write("Views per second: %s\n" % round(tested / sec, 1))
+        log.write("Views per second: %s\n" % round(tested / max(sec,1), 1))
 
     output.close()
     log.close()
