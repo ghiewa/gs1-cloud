@@ -203,8 +203,6 @@ if __name__ == "__main__":
     print("Time:", str(datetime.timedelta(seconds=sec)))
     print()
     if tested > 0:
-        print(tested)
-        print(sec)
         print("Checks per second: ",round(tested/max(sec,1),1))
 
     log.write('\n')
