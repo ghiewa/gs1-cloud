@@ -115,7 +115,7 @@ if __name__ == "__main__":
             company_lang = ""
             gcp_company = ""
 
-            
+
             if 'exception' in check_response:
                 gtin = GTIN_in
                 messageId = check_response["messageId"]
@@ -153,15 +153,15 @@ if __name__ == "__main__":
 
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
-    
+
     if not os.path.exists('output'):
         os.makedirs('output')
 
     output_folder = Path("./output/")
-    
+
     output_to_open = "check_gtins_%s.csv" % timestr
     log_to_open = "check_gtins_%s.log" % timestr
-     
+
     output = open(output_folder / output_to_open, "w", encoding='utf-8')
     log = open(output_folder / log_to_open, "w", encoding='utf-8')
     active_gtins = open("active_gtins.txt", "w", encoding='utf-8')
@@ -190,7 +190,7 @@ if __name__ == "__main__":
     # makes it possible to cancel the thread pool with an exception when
     # the currently running batch of workers is finished.
     pool.map(check, gtins)
-    
+
     # Demonstrates that the main process waited for threads to complete
     pool.wait_completion()
 
@@ -203,7 +203,7 @@ if __name__ == "__main__":
     print("Time:", str(datetime.timedelta(seconds=sec)))
     print()
     if tested > 0:
-        print("Checks per second: ",round(tested/sec,1))
+        print("Checks per second: ",round(tested/max(sec,1),1))
 
     log.write('\n')
     log.write("Pool size: %s\n" % poolsize)
@@ -212,8 +212,8 @@ if __name__ == "__main__":
     log.write('\n')
     log.write("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
     log.write('\n')
-    if tested >0:
-        log.write("Checks per second: %s\n" % round(tested / sec, 1))
+    if tested > 0:
+        log.write("Checks per second: %s\n" % round(tested /max(sec,1), 1))
 
     output.close()
     myfile.close()
