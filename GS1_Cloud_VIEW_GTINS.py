@@ -21,6 +21,7 @@ import credentials
 
 class Worker(Thread):
     """ Thread executing tasks from a given tasks queue """
+
     def __init__(self, tasks):
         Thread.__init__(self)
         self.tasks = tasks
@@ -42,6 +43,7 @@ class Worker(Thread):
 
 class ThreadPool:
     """ Pool of threads consuming tasks from a queue """
+
     def __init__(self, num_threads):
         self.tasks = Queue(num_threads)
         for _ in range(num_threads):
@@ -66,7 +68,7 @@ if __name__ == "__main__":
     # Function to be executed in a thread
     def view(GTIN_in):
 
-        userstr= credentials.login['email'] + ':' + credentials.login['api_key']
+        userstr = credentials.login['email'] + ':' + credentials.login['api_key']
 
         usrPass = base64.b64encode(userstr.encode())
 
@@ -76,8 +78,8 @@ if __name__ == "__main__":
 
         response = requests.request("GET", url, headers=headers)
         api_status_code = response.status_code
-        #print(json.dumps(response.text))
-        #print(api_status_code)len(view_response)
+        # print(json.dumps(response.text))
+        # print(api_status_code)len(view_response)
 
         if api_status_code == 404:
             print(GTIN_in + ' Not Found')
@@ -86,7 +88,7 @@ if __name__ == "__main__":
         if api_status_code in (200, 400):
             view_response = json.loads(response.text)
 
-            for cntr in range(0,len(view_response)):
+            for cntr in range(0, len(view_response)):
 
                 if 'exception' in view_response:
                     gtin = GTIN_in
@@ -122,17 +124,17 @@ if __name__ == "__main__":
                     if company_lang == "":
                         company_lang = 'xx'
 
-
-                print(gtin,tm,brand,brand_lang,ld,ld_lang,gpc,company,company_lang,image_url,image_url_lang,ip_gln,ds_gln)
+                print(gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln)
 
                 output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s \n'
-                % (gtin,tm,brand,brand_lang,ld,ld_lang,gpc,company,company_lang,image_url,image_url_lang,ip_gln,ds_gln))
+                             % (gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln))
             else:
+                if api_status_code == 401:
+                    print('Full authentication is required to access this resource')
+                    exit()
                 log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
 
-
         return
-
 
     gtins = []
     tested = 0
@@ -140,8 +142,6 @@ if __name__ == "__main__":
 
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
-
-
 
     if not os.path.exists('output'):
         os.makedirs('output')
@@ -188,7 +188,7 @@ if __name__ == "__main__":
     print("Time:", str(datetime.timedelta(seconds=sec)))
     print()
     if tested > 0:
-        print("Views per second: ",round(tested / max(sec,1),1))
+        print("Views per second: ", round(tested / max(sec, 1), 1))
 
     log.write('\n')
     log.write("Pool size: %s\n" % poolsize)
@@ -197,8 +197,8 @@ if __name__ == "__main__":
     log.write('\n')
     log.write("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
     log.write('\n')
-    if tested >0:
-        log.write("Views per second: %s\n" % round(tested / max(sec,1), 1))
+    if tested > 0:
+        log.write("Views per second: %s\n" % round(tested / max(sec, 1), 1))
 
     output.close()
     log.close()

@@ -21,6 +21,7 @@ import credentials
 
 class Worker(Thread):
     """ Thread executing tasks from a given tasks queue """
+
     def __init__(self, tasks):
         Thread.__init__(self)
         self.tasks = tasks
@@ -42,6 +43,7 @@ class Worker(Thread):
 
 class ThreadPool:
     """ Pool of threads consuming tasks from a queue """
+
     def __init__(self, num_threads):
         self.tasks = Queue(num_threads)
         for _ in range(num_threads):
@@ -94,9 +96,7 @@ if __name__ == "__main__":
                         ("S004", "Inactieve GTIN van een licentie verleend aan: "),
                         ("S005", "Actieve GTIN van een licentie verleend aan:")]
 
-
-
-        userstr= credentials.login['email'] + ':' + credentials.login['api_key']
+        userstr = credentials.login['email'] + ':' + credentials.login['api_key']
 
         usrPass = base64.b64encode(userstr.encode())
 
@@ -115,7 +115,6 @@ if __name__ == "__main__":
             company_lang = ""
             gcp_company = ""
 
-
             if 'exception' in check_response:
                 gtin = GTIN_in
                 messageId = check_response["messageId"]
@@ -128,24 +127,24 @@ if __name__ == "__main__":
                     company = check_response["companyName"][0]["value"]
                     company_lang = check_response["companyName"][0]["language"]
                     if company_lang == "":
-                    	company_lang = "xx"
+                        company_lang = "xx"
                 if 'gcpCompanyName' in check_response:
                     gcp_company = check_response["gcpCompanyName"]
 
             message_out = next(check_response for check_response in messages if check_response[0] == messageId)[1]
 
-            print(api_status_code, status, gtin, messageId, message_out, gcp_company,company)
+            print(api_status_code, status, gtin, messageId, message_out, gcp_company, company)
 
-            output.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out,gcp_company,company,company_lang))
+            output.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
 
-            if messageId in ("S003","S005"):
-            	active_gtins.write('%s\n' % (gtin))
+            if messageId in ("S003", "S005"):
+                active_gtins.write('%s\n' % (gtin))
         else:
             if api_status_code == 401:
                 print('Full authentication is required to access this resource')
             log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
-        return
 
+        return
 
     gtins = []
     tested = 0
@@ -181,7 +180,6 @@ if __name__ == "__main__":
             gtins.append(gtin)
             tested = tested + 1
 
-
     # Instantiate a thread pool with n worker threads
     pool = ThreadPool(poolsize)
 
@@ -203,7 +201,7 @@ if __name__ == "__main__":
     print("Time:", str(datetime.timedelta(seconds=sec)))
     print()
     if tested > 0:
-        print("Checks per second: ",round(tested/max(sec,1),1))
+        print("Checks per second: ", round(tested/max(sec, 1), 1))
 
     log.write('\n')
     log.write("Pool size: %s\n" % poolsize)
@@ -213,7 +211,7 @@ if __name__ == "__main__":
     log.write("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
     log.write('\n')
     if tested > 0:
-        log.write("Checks per second: %s\n" % round(tested /max(sec,1), 1))
+        log.write("Checks per second: %s\n" % round(tested / max(sec, 1), 1))
 
     output.close()
     myfile.close()
