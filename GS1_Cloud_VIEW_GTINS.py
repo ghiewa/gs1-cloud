@@ -131,7 +131,6 @@ if __name__ == "__main__":
             else:
                 if api_status_code == 401:
                     print('Full authentication is required to access this resource')
-                    exit()
                 log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
 
         return
