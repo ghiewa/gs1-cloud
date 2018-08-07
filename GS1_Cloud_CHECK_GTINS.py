@@ -222,7 +222,7 @@ if __name__ == "__main__":
 
     sec = round((time.time() - starttime))
 
-    print("Done")
+    print("All done.")
     print()
     print("GTINS checked: ", tested)
     print()
