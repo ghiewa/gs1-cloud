@@ -146,7 +146,8 @@ if __name__ == "__main__":
 
         return
 
-    gtins = []
+    gtins = [[] for x in range(0, 10)]
+
     tested = 0
     poolsize = 100  # seems to be an optimum tested with 5000 gtins for larger sets of gtins this can set higher eg. 150
 
@@ -176,9 +177,28 @@ if __name__ == "__main__":
     # Generate list of GTINS
     with open("gtins.txt", "r") as myfile:
         for line in myfile:
-            gtin = line.replace('\n', '')
-            gtins.append(gtin)
             tested = tested + 1
+            gtin = line.replace('\n', '')
+            if gtin[-1:] == '0':
+                gtins[int(gtin[-1:])].append(gtin)
+            elif gtin[-1:] == '1':
+                gtins[int(gtin[-1:])].append(gtin)
+            elif gtin[-1:] == '2':
+                gtins[int(gtin[-1:])].append(gtin)
+            elif gtin[-1:] == '3':
+                gtins[int(gtin[-1:])].append(gtin)
+            elif gtin[-1:] == '4':
+                gtins[int(gtin[-1:])].append(gtin)
+            elif gtin[-1:] == '5':
+                gtins[int(gtin[-1:])].append(gtin)
+            elif gtin[-1:] == '6':
+                gtins[int(gtin[-1:])].append(gtin)
+            elif gtin[-1:] == '7':
+                gtins[int(gtin[-1:])].append(gtin)
+            elif gtin[-1:] == '8':
+                gtins[int(gtin[-1:])].append(gtin)
+            else:
+                gtins[9].append(gtin)
 
     # Instantiate a thread pool with n worker threads
     pool = ThreadPool(poolsize)
@@ -187,10 +207,11 @@ if __name__ == "__main__":
     # `pool.add_task` to add single jobs. The code will block here, which
     # makes it possible to cancel the thread pool with an exception when
     # the currently running batch of workers is finished.
-    pool.map(check, gtins)
 
-    # Demonstrates that the main process waited for threads to complete
-    pool.wait_completion()
+    for cnt in range(0, 10):
+        pool.map(check, gtins[cnt])
+        # Demonstrates that the main process waited for threads to complete
+        pool.wait_completion()
 
     sec = round((time.time() - starttime))
 
