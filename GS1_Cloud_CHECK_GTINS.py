@@ -68,6 +68,9 @@ if __name__ == "__main__":
     # Function to be executed in a thread
     def check(GTIN_in):
 
+        # Choose if you want output to screen per GTIN here (False or True)
+        output_to_screen = False
+
         # Choose output language here
         output_language = 'en'
 
@@ -133,7 +136,8 @@ if __name__ == "__main__":
 
             message_out = next(check_response for check_response in messages if check_response[0] == messageId)[1]
 
-            print(api_status_code, status, gtin, messageId, message_out, gcp_company, company)
+            if output_to_screen:
+                print(api_status_code, status, gtin, messageId, message_out, gcp_company, company)
 
             output.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
 
@@ -208,10 +212,13 @@ if __name__ == "__main__":
     # makes it possible to cancel the thread pool with an exception when
     # the currently running batch of workers is finished.
 
+    print("Processing started. \n")
+
     for cnt in range(0, 10):
         pool.map(check, gtins[cnt])
         # Demonstrates that the main process waited for threads to complete
         pool.wait_completion()
+        print("Finished batch %s: %s GTINS. \n" % (cnt+1, len(gtins[cnt])))
 
     sec = round((time.time() - starttime))
 
