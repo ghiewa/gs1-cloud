@@ -17,6 +17,7 @@ import base64
 from pathlib import Path
 import os
 import credentials
+import config
 
 
 class Worker(Thread):
@@ -68,13 +69,7 @@ if __name__ == "__main__":
     # Function to be executed in a thread
     def check(GTIN_in):
 
-        # Choose if you want output to screen per GTIN here (False or True)
-        output_to_screen = False
-
-        # Choose output language here
-        output_language = 'en'
-
-        if output_language == 'en':
+        if config.output_language == 'en':
             # Standard set of messages in English
             messages = [("E001", "Integrity failed: The length of this GTIN is invalid."),
                         ("E002", "Integrity failed: Incorrect check digit."),
@@ -136,7 +131,7 @@ if __name__ == "__main__":
 
             message_out = next(check_response for check_response in messages if check_response[0] == messageId)[1]
 
-            if output_to_screen:
+            if config.output_to_screen:
                 print(api_status_code, status, gtin, messageId, message_out, gcp_company, company)
 
             output.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
@@ -181,8 +176,10 @@ if __name__ == "__main__":
     # Generate list of GTINS
     with open("gtins.txt", "r") as myfile:
         for line in myfile:
-            tested = tested + 1
+
             gtin = line.replace('\n', '')
+
+            # The GTINS are grouped in batches based on the last digit of the GTIN
             if gtin[-1:] == '0':
                 gtins[int(gtin[-1:])].append(gtin)
             elif gtin[-1:] == '1':
@@ -214,11 +211,16 @@ if __name__ == "__main__":
 
     print("Processing started. \n")
 
-    for cnt in range(0, 10):
+    if config.start_with_batch != 0:
+        print('Starting with batch: %s \n' % config.start_with_batch)
+
+    for cnt in range(config.start_with_batch, 10):
         pool.map(check, gtins[cnt])
         # Demonstrates that the main process waited for threads to complete
         pool.wait_completion()
-        print("Finished batch %s: %s GTINS. \n" % (cnt+1, len(gtins[cnt])))
+        print("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
+        log.write("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
+        tested = tested + len(gtins[cnt])
 
     sec = round((time.time() - starttime))
 
