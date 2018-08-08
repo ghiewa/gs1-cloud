@@ -6,7 +6,7 @@ The GS1 Cloud will be the largest source of trusted product information in the w
 For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_blank">GS1.org</a>.
 
 **Install and usage notes**
-1. Install Python 3 <a href="https://www.python.org/" target="_blank">(www.python.org)</a> on your computer. 
+1. Install Python 3 <a href="https://www.python.org/" target="_blank">(www.python.org)</a> on your computer.
 2. Download the zip file with the program files on your local machine and unpack and store it in a local map.
 3. Put your credentials (email and api-key) in the file credentials.py.
    The API key can be found in the <a href="https://cloud.gs1.org/gs1-portal/" target="_blank">GS1 Cloud user interface</a>
@@ -16,12 +16,13 @@ For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_
 **CHECK GS1_Cloud_CHECK_GTINS.py**
 1. Add your set of GTINS in the file gtins.txt.
    The GTINS have to be 14 digits long, including leading zero's. The attached file gtins.txt will generate most of the current messages.
-2. Run the program in the shell program of your OS (..>python GS1_Cloud_CHECK_GTINS.py) or a Python IDE.<br>
+2. Adjust the basic settings (as output language etc.) in the file config.py
+3. Run the program in the shell program of your OS (..>python GS1_Cloud_CHECK_GTINS.py) or a Python IDE.<br>
    It will test about 35 GTINS per second. The program has been tested with up to 500.000 GTINS in one file.
-3. Find the output in .\output\check_gtins_yyyymmdd_hhmmss.csv.<br>
+4. Find the output in .\output\check_gtins_yyyymmdd_hhmmss.csv.<br>
    Also a log file is created as .\output\check_gtins_yyyymmdd_hhmmss.log<br>
    All active GTINS are listed in the file active_gtins.txt. This file is used as input for GS1_Cloud_VIEW_GTINS.py
-4. View and analyze your results in a spreadsheet or database.
+5. View and analyze your results in a spreadsheet or database.
 
 **VIEW GS1_Cloud_VIEW_GTINS.py**<br>
 Please note:<br>
