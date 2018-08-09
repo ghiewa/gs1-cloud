@@ -4,7 +4,7 @@
 # Author: Sjoerd Schaper (sjoerd.schaper@gs1.nl)
 #
 # Put your credentials (email and api-key) in the file credentials.py
-#
+# Basic settings are in the file config.py
 
 import datetime
 import json
