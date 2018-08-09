@@ -148,7 +148,6 @@ if __name__ == "__main__":
     gtins = [[] for x in range(0, 10)]
 
     tested = 0
-    poolsize = 100  # seems to be an optimum tested with 5000 gtins for larger sets of gtins this can set higher eg. 150
 
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
@@ -202,7 +201,7 @@ if __name__ == "__main__":
                 gtins[9].append(gtin)
 
     # Instantiate a thread pool with n worker threads
-    pool = ThreadPool(poolsize)
+    pool = ThreadPool(config.poolsize)
 
     # Add the jobs in bulk to the thread pool. Alternatively you could use
     # `pool.add_task` to add single jobs. The code will block here, which
@@ -234,7 +233,7 @@ if __name__ == "__main__":
         print("Checks per second: ", round(tested/max(sec, 1), 1))
 
     log.write('\n')
-    log.write("Pool size: %s\n" % poolsize)
+    log.write("Pool size: %s\n" % config.poolsize)
     log.write('\n')
     log.write("GTINS checked: %s\n" % tested)
     log.write('\n')
