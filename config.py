@@ -1,4 +1,5 @@
-# Choose output language here (en or nl)
+# Choose output language here
+# you can find an overview of the available languages in the file messages.py
 output_language = 'en'
 
 # Choose if you want output to screen per GTIN here (False or True)
