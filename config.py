@@ -6,8 +6,8 @@ output_language = 'en'
 output_to_screen = False
 
 # Poolsize is the number of threads used by the program
-# There seems to be an optimum of 100. This is tested with 5000 gtins for larger sets of gtins this can set higher eg. 150
-poolsize = 100
+# It can be set upto 500. Depending on your system and internet connection you might be able to increase it.
+poolsize = 500
 
 # If you have to run the same dataset again due to a break or crash
 # you can set te batch number you want to start with here.
