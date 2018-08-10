@@ -2,6 +2,7 @@
 # Program to CHECK the validity of GTINS against the GS1 Cloud (BETA) CHECK API
 #
 # Author: Sjoerd Schaper (sjoerd.schaper@gs1.nl)
+# Source code available at: https://github.com/sjoerdsch/gs1-cloud
 #
 # Put your credentials (email and api-key) in the file credentials.py
 # Basic settings are in the file config.py
@@ -18,6 +19,7 @@ from pathlib import Path
 import os
 import credentials
 import config
+import messages
 
 
 class Worker(Thread):
@@ -69,31 +71,6 @@ if __name__ == "__main__":
     # Function to be executed in a thread
     def check(GTIN_in):
 
-        if config.output_language == 'en':
-            # Standard set of messages in English
-            messages = [("E001", "Integrity failed: The length of this GTIN is invalid."),
-                        ("E002", "Integrity failed: Incorrect check digit."),
-                        ("E003", "Integrity failed: String contains alphanumerical characters."),
-                        ("E004", "Incorrect number.That GS1 prefix(3 - digit country code) does not exist."),
-                        ("E005", "Incorrect number based on GS1 Prefix reserved for special use."),
-                        ("S001", "Unknown number, no information can be returned."),
-                        ("S002", "Unknown GTIN from a license issued to: "),
-                        ("S003", "Active GTIN from a license issued to: "),
-                        ("S004", "Inactive GTIN from a license issued to: "),
-                        ("S005", "Active GTIN from a license issued to:")]
-        else:
-            # Messages in local language
-            messages = [("E001", "Onjuiste structuur: De lengte van de GTIN is niet correct (moet 14 cijfers zijn)."),
-                        ("E002", "Onjuiste structuur: Niet correct controle getal."),
-                        ("E003", "Onjuiste structuur: De GTIN bevat alfanumerieke karakters."),
-                        ("E004", "Onjuist nummer. De GS1 prefix(3-cijferige landcode) bestaat niet."),
-                        ("E005", "Onjuist nummer: de GS1 Prefix is gereserveerd voor speciale toepassingen."),
-                        ("S001", "Onbekend nummer, er kan geen informatie gegeven worden."),
-                        ("S002", "Onbekende GTIN van een licentie verleend aan: "),
-                        ("S003", "Actieve GTIN van een licentie verleend aan: "),
-                        ("S004", "Inactieve GTIN van een licentie verleend aan: "),
-                        ("S005", "Actieve GTIN van een licentie verleend aan:")]
-
         userstr = credentials.login['email'] + ':' + credentials.login['api_key']
 
         usrPass = base64.b64encode(userstr.encode())
@@ -129,7 +106,11 @@ if __name__ == "__main__":
                 if 'gcpCompanyName' in check_response:
                     gcp_company = check_response["gcpCompanyName"]
 
-            message_out = next(check_response for check_response in messages if check_response[0] == messageId)[1]
+            if messageId in messages.languages[lang]:
+                message_out = messages.languages[lang][messageId]
+            else:
+                message_out = "Unknown messageId"
+                print("Unknown messageId")
 
             if config.output_to_screen:
                 print(api_status_code, status, gtin, messageId, message_out, gcp_company, company)
@@ -171,6 +152,22 @@ if __name__ == "__main__":
         print("The input file gtins.txt is missing. \n")
         log.write("The input file gtins.txt is missing. \n")
         exit()
+
+    if config.output_language in messages.languages:
+        lang = config.output_language
+    else:
+        lang = 'en'
+        print("Unknown language. Available languages are:")
+        log.write("Unknown language. Available languages are: \n")
+        for lang in messages.languages:
+            print(lang)
+            log.write("- %s\n" % lang)
+        print()
+        print("Output language set to English. \n")
+        log.write("Output Language set to English. \n")
+        print("You can update this setting in the file config.py. \n")
+        log.write("You can update this setting in the file config.py. \n")
+        log.write("\n")
 
     # Generate list of GTINS
     with open("gtins.txt", "r") as myfile:

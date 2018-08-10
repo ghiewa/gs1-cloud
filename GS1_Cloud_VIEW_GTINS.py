@@ -2,6 +2,7 @@
 # Program to VIEW GTINS which are stored in the GS1 Cloud (BETA) via the VIEW API
 #
 # Author: Sjoerd Schaper (sjoerd.schaper@gs1.nl)
+# Source code available at: https://github.com/sjoerdsch/gs1-cloud
 #
 # Put your credentials (email and api-key) in the file credentials.py
 #
@@ -17,6 +18,7 @@ import base64
 from pathlib import Path
 import os
 import credentials
+import config
 
 
 class Worker(Thread):
@@ -94,6 +96,7 @@ if __name__ == "__main__":
                     gtin = GTIN_in
                     messageId = view_response["messageId"]
                     status = 0
+                    print(messageId, status)
                 else:
                     gtin = view_response[cntr]["gtin"]
                     tm = view_response[cntr]["targetMarket"]
@@ -137,7 +140,6 @@ if __name__ == "__main__":
 
     gtins = []
     tested = 0
-    poolsize = 100  # seems to be an optimum tested with 5000 gtins
 
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
@@ -168,7 +170,7 @@ if __name__ == "__main__":
         myfile.close()
 
     # Instantiate a thread pool with n worker threads
-    pool = ThreadPool(poolsize)
+    pool = ThreadPool(config.poolsize)
 
     # Add the jobs in bulk to the thread pool. Alternatively you could use
     # `pool.add_task` to add single jobs. The code will block here, which
@@ -190,7 +192,7 @@ if __name__ == "__main__":
         print("Views per second: ", round(tested / max(sec, 1), 1))
 
     log.write('\n')
-    log.write("Pool size: %s\n" % poolsize)
+    log.write("Pool size: %s\n" % config.poolsize)
     log.write('\n')
     log.write("GTINS viewed: %s\n" % tested)
     log.write('\n')
