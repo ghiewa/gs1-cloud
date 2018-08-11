@@ -1,6 +1,7 @@
 
 # Dictionaries per language with all the messages of GS1 cloud
-# Extra languages shoud be added to the dictonary message at the end of this file
+# Extra languages shoud be added to the dictonary 'languages' at the end of this file
+
 en = {
     "E001": "Integrity failed: The length of this GTIN is invalid.",
     "E002": "Integrity failed: Incorrect check digit.",
@@ -24,6 +25,7 @@ nl = {
     "S003": "Actieve GTIN van een licentie verleend aan: ",
     "S004": "Inactieve GTIN van een licentie verleend aan: ",
     "S005": "Actieve GTIN van een licentie verleend aan: "}
+
 
 # Dictionary with the available languages
 languages = {"nl": nl, "en": en}

@@ -1,5 +1,10 @@
+# Settings for GS1_Cloud_CHECK_GTINS.py and GS1_Cloud_VIEW_GTINS.py
+#
+# Choose the name of the inputfile here
+input_file = "gtins.txt"
+
 # Choose output language here
-# you can find an overview of the available languages in the file messages.py
+# You can find an overview of the available languages in the file messages.py
 output_language = 'en'
 
 # Choose if you want output to screen per GTIN here (False or True)

@@ -149,8 +149,8 @@ if __name__ == "__main__":
     output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
 
     if not os.path.isfile('./gtins.txt'):
-        print("The input file gtins.txt is missing. \n")
-        log.write("The input file gtins.txt is missing. \n")
+        print("The input file %s is missing. \n" % config.input_file)
+        log.write("The input file %s is missing. \n" % config.input_file)
         exit()
 
     if config.output_language in messages.languages:
@@ -170,7 +170,7 @@ if __name__ == "__main__":
         log.write("\n")
 
     # Generate list of GTINS
-    with open("gtins.txt", "r") as myfile:
+    with open(config.input_file, "r") as myfile:
         for line in myfile:
 
             gtin = line.replace('\n', '')
@@ -217,6 +217,7 @@ if __name__ == "__main__":
         print("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
         log.write("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
         tested = tested + len(gtins[cnt])
+        gtins[cnt].clear()
 
     sec = round((time.time() - starttime))
 
