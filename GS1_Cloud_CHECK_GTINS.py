@@ -70,6 +70,7 @@ if __name__ == "__main__":
 
     # Function to be executed in a thread
     def check(GTIN_in):
+        global checked
 
         userstr = credentials.login['email'] + ':' + credentials.login['api_key']
 
@@ -116,6 +117,7 @@ if __name__ == "__main__":
                 print(api_status_code, status, gtin, messageId, message_out, gcp_company, company)
 
             output.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
+            checked = checked + 1
 
             if messageId in ("S003", "S005"):
                 active_gtins.write('%s\n' % (gtin))
@@ -128,7 +130,8 @@ if __name__ == "__main__":
 
     gtins = [[] for x in range(0, 10)]
 
-    tested = 0
+    gtins_in_input = 0
+    checked = 0
 
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
@@ -200,10 +203,7 @@ if __name__ == "__main__":
     # Instantiate a thread pool with n worker threads
     pool = ThreadPool(config.poolsize)
 
-    # Add the jobs in bulk to the thread pool. Alternatively you could use
-    # `pool.add_task` to add single jobs. The code will block here, which
-    # makes it possible to cancel the thread pool with an exception when
-    # the currently running batch of workers is finished.
+    # Add the jobs in bulk to the thread pool.
 
     print("Processing started. \n")
 
@@ -216,29 +216,27 @@ if __name__ == "__main__":
         pool.wait_completion()
         print("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
         log.write("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
-        tested = tested + len(gtins[cnt])
+        gtins_in_input = gtins_in_input + len(gtins[cnt])
         gtins[cnt].clear()
 
     sec = round((time.time() - starttime))
 
-    print("All done.")
-    print()
-    print("GTINS checked: ", tested)
-    print()
-    print("Time:", str(datetime.timedelta(seconds=sec)))
-    print()
-    if tested > 0:
-        print("Checks per second: ", round(tested/max(sec, 1), 1))
+    print("All done.\n")
+    print("GTINS in input file: %s\n" % gtins_in_input)
+    print("GTINS checked: %s\n" % checked)
+    print("GTINS without result: %s\n" % (gtins_in_input - checked))
+    print("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
+    if checked > 0:
+        print("Checks per second: %s\n" % round(checked/max(sec, 1), 1))
 
     log.write('\n')
     log.write("Pool size: %s\n" % config.poolsize)
-    log.write('\n')
-    log.write("GTINS checked: %s\n" % tested)
-    log.write('\n')
+    log.write("GTINS in input file: %s\n" % gtins_in_input)
+    log.write("GTINS checked: %s\n" % checked)
+    log.write("GTINS without result: %s\n" % (gtins_in_input - checked))
     log.write("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
-    log.write('\n')
-    if tested > 0:
-        log.write("Checks per second: %s\n" % round(tested / max(sec, 1), 1))
+    if checked > 0:
+        log.write("Checks per second: %s\n" % round(checked / max(sec, 1), 1))
 
     output.close()
     myfile.close()
