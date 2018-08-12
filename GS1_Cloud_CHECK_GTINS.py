@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
     # Function to be executed in a thread
     def check(GTIN_in):
-        global checked
+        global checked, statistics
 
         userstr = credentials.login['email'] + ':' + credentials.login['api_key']
 
@@ -117,7 +117,9 @@ if __name__ == "__main__":
                 print(api_status_code, status, gtin, messageId, message_out, gcp_company, company)
 
             output.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
+
             checked = checked + 1
+            statistics[messageId] = statistics[messageId] + 1
 
             if messageId in ("S003", "S005"):
                 active_gtins.write('%s\n' % (gtin))
@@ -132,6 +134,7 @@ if __name__ == "__main__":
 
     gtins_in_input = 0
     checked = 0
+    statistics = {mess_key: 0 for mess_key in list(messages.languages[config.output_language])}
 
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
@@ -224,19 +227,27 @@ if __name__ == "__main__":
     print("All done.\n")
     print("GTINS in input file: %s\n" % gtins_in_input)
     print("GTINS checked: %s\n" % checked)
-    print("GTINS without result: %s\n" % (gtins_in_input - checked))
+    print("API requests without result: %s\n" % (gtins_in_input - checked))
     print("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
     if checked > 0:
         print("Checks per second: %s\n" % round(checked/max(sec, 1), 1))
+    print("Statistics")
+    print("----------")
+    for key in statistics.keys():
+        print(str(statistics[key]).zfill(5), key, messages.languages[config.output_language][key])
 
     log.write('\n')
     log.write("Pool size: %s\n" % config.poolsize)
     log.write("GTINS in input file: %s\n" % gtins_in_input)
     log.write("GTINS checked: %s\n" % checked)
-    log.write("GTINS without result: %s\n" % (gtins_in_input - checked))
+    log.write("API requests without result: %s\n" % (gtins_in_input - checked))
     log.write("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
     if checked > 0:
         log.write("Checks per second: %s\n" % round(checked / max(sec, 1), 1))
+    log.write("\nStatistics \n")
+    log.write("----------\n")
+    for key in statistics.keys():
+        log.write("%s %s %s \n" % (str(statistics[key]).zfill(5), key, messages.languages[config.output_language][key]))
 
     output.close()
     myfile.close()
