@@ -214,7 +214,10 @@ if __name__ == "__main__":
         print('Starting with batch: %s \n' % config.start_with_batch)
 
     for cnt in range(config.start_with_batch, 10):
-        pool.map(check, gtins[cnt])
+        # Jobs can be added via map() or add_task()
+        # pool.map(check, gtins[cnt])
+        for x in range(0, len(gtins[cnt])):
+            pool.add_task(check, gtins[cnt][x])
         # Demonstrates that the main process waited for threads to complete
         pool.wait_completion()
         print("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
