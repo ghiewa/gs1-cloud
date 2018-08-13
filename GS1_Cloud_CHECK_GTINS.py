@@ -235,6 +235,7 @@ if __name__ == "__main__":
     print("----------")
     for key in statistics.keys():
         print(str(statistics[key]).zfill(5), key, messages.languages[config.output_language][key])
+    print("\n")
 
     log.write('\n')
     log.write("Pool size: %s\n" % config.poolsize)
