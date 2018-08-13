@@ -178,30 +178,8 @@ if __name__ == "__main__":
     # Generate list of GTINS
     with open(config.input_file, "r") as myfile:
         for line in myfile:
-
             gtin = line.replace('\n', '')
-
-            # The GTINS are grouped in batches based on the last digit of the GTIN
-            if gtin[-1:] == '0':
-                gtins[int(gtin[-1:])].append(gtin)
-            elif gtin[-1:] == '1':
-                gtins[int(gtin[-1:])].append(gtin)
-            elif gtin[-1:] == '2':
-                gtins[int(gtin[-1:])].append(gtin)
-            elif gtin[-1:] == '3':
-                gtins[int(gtin[-1:])].append(gtin)
-            elif gtin[-1:] == '4':
-                gtins[int(gtin[-1:])].append(gtin)
-            elif gtin[-1:] == '5':
-                gtins[int(gtin[-1:])].append(gtin)
-            elif gtin[-1:] == '6':
-                gtins[int(gtin[-1:])].append(gtin)
-            elif gtin[-1:] == '7':
-                gtins[int(gtin[-1:])].append(gtin)
-            elif gtin[-1:] == '8':
-                gtins[int(gtin[-1:])].append(gtin)
-            else:
-                gtins[9].append(gtin)
+            gtins.append(gtin)
 
     # Instantiate a thread pool with n worker threads
     pool = ThreadPool(config.poolsize)
@@ -213,17 +191,17 @@ if __name__ == "__main__":
     if config.start_with_batch != 0:
         print('Starting with batch: %s \n' % config.start_with_batch)
 
-    for cnt in range(config.start_with_batch, 10):
-        # Jobs can be added via map() or add_task()
-        # pool.map(check, gtins[cnt])
-        for x in range(0, len(gtins[cnt])):
-            pool.add_task(check, gtins[cnt][x])
-        # Demonstrates that the main process waited for threads to complete
-        pool.wait_completion()
-        print("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
-        log.write("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
-        gtins_in_input = gtins_in_input + len(gtins[cnt])
-        gtins[cnt].clear()
+    # Jobs can be added via map() or add_task()
+    # pool.map(check, gtins[cnt])
+
+    for x in range(0, len(gtins)):
+        pool.add_task(check, gtins[x])
+    # Demonstrates that the main process waited for threads to complete
+    pool.wait_completion()
+    # print("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
+    # log.write("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
+
+    gtins_in_input = gtins
 
     sec = round((time.time() - starttime))
 
