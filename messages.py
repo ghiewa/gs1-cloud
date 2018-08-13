@@ -6,7 +6,7 @@ en = {
     "E001": "Integrity failed: The length of this GTIN is invalid.",
     "E002": "Integrity failed: Incorrect check digit.",
     "E003": "Integrity failed: String contains alphanumerical characters.",
-    "E004": "Incorrect number.That GS1 prefix(3 - digit country code) does not exist.",
+    "E004": "Incorrect number. That GS1 prefix(3 - digit country code) does not exist.",
     "E005": "Incorrect number based on GS1 Prefix reserved for special use.",
     "E006": "Incorrect number. That GS1 company prefix has not been assigned.",
     "S001": "Unknown number, no information can be returned.",
