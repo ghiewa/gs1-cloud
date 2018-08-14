@@ -1,7 +1,7 @@
 # Settings for GS1_Cloud_CHECK_GTINS.py and GS1_Cloud_VIEW_GTINS.py
 #
 # Choose the name of the inputfile here
-input_file = "gtins.txt"
+input_file = "gtins_bol_2017.txt"
 
 # Choose output language here
 # You can find an overview of the available languages in the file messages.py
@@ -14,9 +14,10 @@ output_to_screen = False
 # It can be set upto 500. Depending on your system and internet connection you might be able to increase it.
 poolsize = 500
 
+# Batchsize is the number of GTINS send to the API per batch
+batchsize = 50000
+
 # If you have to run the same dataset again due to a break or crash
 # you can set te batch number you want to start with here.
-#
-# The batch number is equal to the last digit of the GTINS.
-# So the first batch has number 0 (zero) and the last one 9 (nine).
+# You can find the numbers of the processed batches in the log file
 start_with_batch = 0
