@@ -195,11 +195,8 @@ if __name__ == "__main__":
     # Create a list that from the results of the function chunks:
     batches = list(chunks(gtins, config.batchsize))
 
-    # for i in range(0, len(batches)):
-    #    print(batches[i])
-
     print("Processing started. \n")
-    print("Dataset split in %s batch(es) of %s GTINS.\n" % (len(batches), config.batchsize))
+    print("Dataset of %s GTINS split in %s batch(es) of %s GTINS.\n" % (len(gtins), len(batches), min(config.batchsize, len(gtins))))
 
     if config.start_with_batch != 0:
         print('Starting with batch: %s \n' % config.start_with_batch)
@@ -212,8 +209,9 @@ if __name__ == "__main__":
             pool.add_task(check, batches[i][x])
             # Demonstrates that the main process waited for threads to complete
         pool.wait_completion()
-        print("Finished batch %s: %s GTINS. \n" % (i, len(batches[i])))
-        log.write("Finished batch %s: %s GTINS. \n" % (i, len(batches[i])))
+        sec = round((time.time() - starttime))
+        print("Finished batch %s: %s GTINS after %s. \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec))))
+        log.write("Finished batch %s: %s GTINS after %s. \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec))))
 
     gtins_in_input = len(gtins)
 
