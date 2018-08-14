@@ -1,3 +1,11 @@
+# Ignore everything
+*.txt
+*.bck
+output/
+
+# But not these files...
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
