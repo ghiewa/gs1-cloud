@@ -2,6 +2,7 @@
 *.txt
 *.bck
 output/
+credentials.py
 
 # But not these files...
 
