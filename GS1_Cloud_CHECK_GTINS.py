@@ -130,7 +130,7 @@ if __name__ == "__main__":
 
         return
 
-    gtins = [[] for x in range(0, 10)]
+    gtins = []
 
     gtins_in_input = 0
     checked = 0
@@ -184,9 +184,22 @@ if __name__ == "__main__":
     # Instantiate a thread pool with n worker threads
     pool = ThreadPool(config.poolsize)
 
-    # Add the jobs in bulk to the thread pool.
+    # Add the jobs in batches to the thread pool.
+
+    def chunks(l, n):
+        # For item i in a range that is a length of l,
+        for i in range(0, len(l), n):
+            # Create an index range for l of n items:
+            yield l[i:i+n]
+
+    # Create a list that from the results of the function chunks:
+    batches = list(chunks(gtins, config.batchsize))
+
+    # for i in range(0, len(batches)):
+    #    print(batches[i])
 
     print("Processing started. \n")
+    print("Dataset split in %s batch(es) of %s GTINS.\n" % (len(batches), config.batchsize))
 
     if config.start_with_batch != 0:
         print('Starting with batch: %s \n' % config.start_with_batch)
@@ -194,14 +207,15 @@ if __name__ == "__main__":
     # Jobs can be added via map() or add_task()
     # pool.map(check, gtins[cnt])
 
-    for x in range(0, len(gtins)):
-        pool.add_task(check, gtins[x])
-    # Demonstrates that the main process waited for threads to complete
-    pool.wait_completion()
-    # print("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
-    # log.write("Finished batch %s: %s GTINS. \n" % (cnt, len(gtins[cnt])))
+    for i in range(0, len(batches)):
+        for x in range(0, len(batches[i])):
+            pool.add_task(check, batches[i][x])
+            # Demonstrates that the main process waited for threads to complete
+        pool.wait_completion()
+        print("Finished batch %s: %s GTINS. \n" % (i, len(batches[i])))
+        log.write("Finished batch %s: %s GTINS. \n" % (i, len(batches[i])))
 
-    gtins_in_input = gtins
+    gtins_in_input = len(gtins)
 
     sec = round((time.time() - starttime))
 
