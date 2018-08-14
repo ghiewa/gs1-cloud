@@ -15,7 +15,7 @@ output_to_screen = False
 poolsize = 500
 
 # Batchsize is the number of GTINS send to the API per batch
-batchsize = 50000
+batchsize = 10000
 
 # If you have to run the same dataset again due to a break or crash
 # you can set te batch number you want to start with here.
