@@ -20,4 +20,5 @@ batchsize = 50000
 # If you have to run the same dataset again due to a break or crash
 # you can set te batch number you want to start with here.
 # You can find the numbers of the processed batches in the log file
+# Remember that the first batch is 0 (zero).
 start_with_batch = 0
