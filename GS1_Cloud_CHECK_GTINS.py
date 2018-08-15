@@ -146,9 +146,11 @@ if __name__ == "__main__":
 
     output_to_open = "check_gtins_%s.csv" % timestr
     log_to_open = "check_gtins_%s.log" % timestr
+    input_to_save = "input_gtins_%s.txt" % timestr
 
     output = open(output_folder / output_to_open, "w", encoding='utf-8')
     log = open(output_folder / log_to_open, "w", encoding='utf-8')
+    saved_input = open(output_folder / input_to_save, "w", encoding='utf-8')
     active_gtins = open("active_gtins.txt", "w", encoding='utf-8')
 
     # Write CSV Header
@@ -227,7 +229,7 @@ if __name__ == "__main__":
     print("Statistics")
     print("----------")
     for key in statistics.keys():
-        print(str(statistics[key]).zfill(5), key, messages.languages[config.output_language][key])
+        print(str(statistics[key]).zfill(6), key, messages.languages[config.output_language][key])
     print("\n")
 
     log.write('\n')
@@ -241,9 +243,13 @@ if __name__ == "__main__":
     log.write("\nStatistics \n")
     log.write("----------\n")
     for key in statistics.keys():
-        log.write("%s %s %s \n" % (str(statistics[key]).zfill(5), key, messages.languages[config.output_language][key]))
+        log.write("%s %s %s \n" % (str(statistics[key]).zfill(6), key, messages.languages[config.output_language][key]))
+
+    for cntr in range(0, len(gtins)):
+        saved_input.write("%s\n" % gtins[cntr])
 
     output.close()
     myfile.close()
     log.close()
     active_gtins.close()
+    saved_input.close()
