@@ -130,6 +130,7 @@ if __name__ == "__main__":
 
         return
 
+    gtins_in = []
     gtins = []
 
     gtins_in_input = 0
@@ -156,7 +157,7 @@ if __name__ == "__main__":
     # Write CSV Header
     output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
 
-    if not os.path.isfile('./gtins.txt'):
+    if not os.path.isfile('./' + config.input_file):
         print("The input file %s is missing. \n" % config.input_file)
         log.write("The input file %s is missing. \n" % config.input_file)
         exit()
@@ -181,7 +182,13 @@ if __name__ == "__main__":
     with open(config.input_file, "r") as myfile:
         for line in myfile:
             gtin = line.replace('\n', '')
-            gtins.append(gtin)
+            gtins_in.append(gtin)
+
+    # Removing duplicates
+    gtins = list(dict.fromkeys(gtins_in))
+    print("\n%s duplicates removed.\n" % (len(gtins_in)-len(gtins)))
+    log.write("\n%s duplicates removed.\n" % (len(gtins_in)-len(gtins)))
+    gtins_in.clear()
 
     # Instantiate a thread pool with n worker threads
     pool = ThreadPool(config.poolsize)
@@ -212,8 +219,8 @@ if __name__ == "__main__":
             # Demonstrates that the main process waited for threads to complete
         pool.wait_completion()
         sec = round((time.time() - starttime))
-        print("Finished batch %s: %s GTINS after %s. \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec))))
-        log.write("Finished batch %s: %s GTINS after %s. \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec))))
+        print("Finished batch %s: %s GTINS after %s (%s checks per second). \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), round(len(batches[i])/max(sec, 1), 1)))
+        log.write("Finished batch %s: %s GTINS after %s (%s checks per second). \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), round(len(batches[i])/max(sec, 1), 1)))
 
     gtins_in_input = len(gtins)
 
