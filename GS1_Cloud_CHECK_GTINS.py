@@ -227,7 +227,7 @@ if __name__ == "__main__":
         print("Finished batch %s: %s GTINS after %s (%s responses in %s seconds, %s per second). \n" % (i, len(batches[i]), str(
             datetime.timedelta(seconds=sec)), responses_batch, sec_batch, round(responses_batch/max(sec_batch, 1), 1)))
         log.write("Finished batch %s: %s GTINS after %s (%s responses in %s seconds, %s per second). \n" %
-                  (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), sec_batch, responses_batch, round(responses_batch/max(sec_batch, 1), 1)))
+                  (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), responses_batch, sec_batch, round(responses_batch/max(sec_batch, 1), 1)))
 
     gtins_in_input = len(gtins)
 
