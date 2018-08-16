@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
     # Function to be executed in a thread
     def check(GTIN_in):
-        global checked, statistics
+        global checked, responses_batch, statistics
 
         userstr = credentials.login['email'] + ':' + credentials.login['api_key']
 
@@ -119,6 +119,7 @@ if __name__ == "__main__":
             output.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
 
             checked = checked + 1
+            responses_batch = responses_batch + 1
             statistics[messageId] = statistics[messageId] + 1
 
             if messageId in ("S003", "S005"):
@@ -135,6 +136,7 @@ if __name__ == "__main__":
 
     gtins_in_input = 0
     checked = 0
+    responses_batch = 0
     statistics = {mess_key: 0 for mess_key in list(messages.languages[config.output_language])}
 
     starttime = time.time()
@@ -215,14 +217,17 @@ if __name__ == "__main__":
 
     for i in range(0, len(batches)):
         starttime_batch = time.time()
+        responses_batch = 0
         for x in range(0, len(batches[i])):
             pool.add_task(check, batches[i][x])
             # Demonstrates that the main process waited for threads to complete
         pool.wait_completion()
         sec = round((time.time() - starttime))
         sec_batch = round((time.time() - starttime_batch))
-        print("Finished batch %s: %s GTINS after %s (%s checks per second). \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), round(len(batches[i])/max(sec_batch, 1), 1)))
-        log.write("Finished batch %s: %s GTINS after %s (%s checks per second). \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), round(len(batches[i])/max(sec_batch, 1), 1)))
+        print("Finished batch %s: %s GTINS after %s (%s responses in %s seconds, %s per second). \n" % (i, len(batches[i]), str(
+            datetime.timedelta(seconds=sec)), responses_batch, sec_batch, round(responses_batch/max(sec_batch, 1), 1)))
+        log.write("Finished batch %s: %s GTINS after %s (%s responses in %s seconds, %s per second). \n" %
+                  (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), sec_batch, responses_batch, round(responses_batch/max(sec_batch, 1), 1)))
 
     gtins_in_input = len(gtins)
 
