@@ -15,7 +15,7 @@ For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_
 
 **CHECK GS1_Cloud_CHECK_GTINS.py**
 1. Add your set of GTINS in the file gtins.txt.
-   The GTINS have to be 14 digits long, including leading zero's. The attached file gtins.txt will generate most of the current messages.
+   The GTINS have to be 14 digits long, including leading zero's. The attached file gtins.txt will generate all of the current messages.
 2. Adjust the basic settings (as output language etc.) in the file config.py
 3. Run the program in the shell program of your OS (..>python GS1_Cloud_CHECK_GTINS.py) or a Python IDE.<br>
    It will test about 35 GTINS per second. The program has been tested with up to 500.000 GTINS in one file.
