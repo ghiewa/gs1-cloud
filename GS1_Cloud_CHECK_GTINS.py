@@ -214,13 +214,15 @@ if __name__ == "__main__":
     # pool.map(check, gtins[cnt])
 
     for i in range(0, len(batches)):
+        starttime_batch = time.time()
         for x in range(0, len(batches[i])):
             pool.add_task(check, batches[i][x])
             # Demonstrates that the main process waited for threads to complete
         pool.wait_completion()
         sec = round((time.time() - starttime))
-        print("Finished batch %s: %s GTINS after %s (%s checks per second). \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), round(len(batches[i])/max(sec, 1), 1)))
-        log.write("Finished batch %s: %s GTINS after %s (%s checks per second). \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), round(len(batches[i])/max(sec, 1), 1)))
+        sec_batch = round((time.time() - starttime_batch))
+        print("Finished batch %s: %s GTINS after %s (%s checks per second). \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), round(len(batches[i])/max(sec_batch, 1), 1)))
+        log.write("Finished batch %s: %s GTINS after %s (%s checks per second). \n" % (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), round(len(batches[i])/max(sec_batch, 1), 1)))
 
     gtins_in_input = len(gtins)
 
