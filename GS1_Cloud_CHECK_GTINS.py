@@ -72,12 +72,6 @@ if __name__ == "__main__":
     def check(GTIN_in):
         global checked, responses_batch, statistics
 
-        userstr = credentials.login['email'] + ':' + credentials.login['api_key']
-
-        usrPass = base64.b64encode(userstr.encode())
-
-        headers = {'Authorization': "Basic %s" % str(usrPass)[2:-1]}
-
         url = "https://cloud.gs1.org/api/v1/products/%s/check" % GTIN_in
 
         response = requests.request("GET", url, headers=headers)
@@ -127,9 +121,21 @@ if __name__ == "__main__":
         else:
             if api_status_code == 401:
                 print('Full authentication is required to access this resource')
-            log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
+            elif api_status_code == 500:
+                log.write('%s %s GTIN not accepted in queue \n' % (GTIN_in, api_status_code))
+                # as this is not a proper API response the number of checked is set 1 lower
+                checked = checked - 1
+            else:
+                log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
 
         return
+
+    """Start of main program"""
+    userstr = credentials.login['email'] + ':' + credentials.login['api_key']
+
+    usrPass = base64.b64encode(userstr.encode())
+
+    headers = {'Authorization': "Basic %s" % str(usrPass)[2:-1]}
 
     gtins_in = []
     gtins = []
@@ -218,9 +224,8 @@ if __name__ == "__main__":
     for i in range(0, len(batches)):
         starttime_batch = time.time()
         responses_batch = 0
-        for x in range(0, len(batches[i])):
-            pool.add_task(check, batches[i][x])
-            # Demonstrates that the main process waited for threads to complete
+        pool.map(check, batches[i])
+        # Demonstrates that the main process waited for threads to complete
         pool.wait_completion()
         sec = round((time.time() - starttime))
         sec_batch = round((time.time() - starttime_batch))
