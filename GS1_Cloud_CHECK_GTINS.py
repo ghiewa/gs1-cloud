@@ -212,7 +212,7 @@ if __name__ == "__main__":
     # Create a list that from the results of the function chunks:
     batches = list(chunks(gtins, config.batchsize))
 
-    print("Processing started. \n")
+    print("Processing of file %s started. \n" % (config.input_file))
     print("Dataset of %s GTINS split in %s batch(es) of %s GTINS.\n" % (len(gtins), len(batches), min(config.batchsize, len(gtins))))
 
     if config.start_with_batch != 0:
@@ -245,7 +245,7 @@ if __name__ == "__main__":
     print("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
     if checked > 0:
         print("Checks per second: %s\n" % round(checked/max(sec, 1), 1))
-    print("Statistics")
+    print("\nStatistics")
     print("----------")
     for key in statistics.keys():
         print(str(statistics[key]).zfill(6), key, messages.languages[config.output_language][key])
