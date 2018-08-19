@@ -151,16 +151,17 @@ if __name__ == "__main__":
     if not os.path.exists('output'):
         os.makedirs('output')
 
+    output_file = config.input_file.split(".")
     output_folder = Path("./output/")
 
-    output_to_open = "check_gtins_%s.csv" % timestr
-    log_to_open = "check_gtins_%s.log" % timestr
-    input_to_save = "input_gtins_%s.txt" % timestr
+    output_to_open = "%s_check_%s.csv" % (output_file[0], timestr)
+    log_to_open = "%s_check_%s.log" % (output_file[0], timestr)
+    input_to_save = "%s_input_%s.txt" % (output_file[0], timestr)
 
-    output = open(output_folder / output_to_open, "w", encoding='utf-8')
-    log = open(output_folder / log_to_open, "w", encoding='utf-8')
-    saved_input = open(output_folder / input_to_save, "w", encoding='utf-8')
-    active_gtins = open("active_gtins.txt", "w", encoding='utf-8')
+    output = open(str(output_folder / output_to_open), "w", encoding='utf-8')
+    log = open(str(output_folder / log_to_open), "w", encoding='utf-8')
+    saved_input = open(str(output_folder / input_to_save), "w", encoding='utf-8')
+    active_gtins = open(str("active_gtins.txt"), "w", encoding='utf-8')
 
     # Write CSV Header
     output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
