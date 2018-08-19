@@ -33,7 +33,7 @@ As the program might run for several hours in case of large input files it can b
 **VIEW GS1_Cloud_VIEW_GTINS.py**<br>
 Please note:<br>
 The VIEW API is experimental and at the moment only available for GS1 member organisations.
-Until now you can only view items uploaded under your account. Therefor many active gtins (from other sources)
+At this moment you can only view items uploaded under your account. Therefor many active gtins (from other sources)
 give a 404 (not found) as result. These are listed in the log file.  
 
 1. Run the program in the shell program of your OS (..>python GS1_Cloud_VIEW_GTINS.py) or a Python IDE.
