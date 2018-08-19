@@ -18,15 +18,15 @@ Please note:<br>
 As the program might run for several hours in case of large input files it can be preferable to install it on a server in stead of a personal laptop.  
 
 **CHECK GS1_Cloud_CHECK_GTINS.py**
-1. Add your set of GTINS in the file <your filename>.txt.
+1. Add your set of GTINS in the file "your filename".txt.
    The GTINS have to be 14 digits long, including leading zero's. The attached file gtins.txt will generate all of the current messages.
 2. Refer to the correct filename in the file config.py.   
 3. Adjust the basic settings (as output language etc.) in the file config.py
 4. Run the program in the shell program of your OS (..>python GS1_Cloud_CHECK_GTINS.py) or a Python IDE.<br>
    It will test about 35 GTINS per second. The program has been tested with up to 500.000 GTINS in one file.
-5. Find the output in .\output\<your filename>_check_yyyymmdd_hhmmss.csv.<br>
-   Also a log file is created as .\output\<your filename>_check_yyyymmdd_hhmmss.log<br>
-   The input file is copied to  .\output\<your filename>_input_yyyymmdd_hhmmss.log<br>
+5. Find the output in .\output\"your filename"_check_yyyymmdd_hhmmss.csv.<br>
+   Also a log file is created as .\output\"your filename"_check_yyyymmdd_hhmmss.log<br>
+   The input file is copied to  .\output\"your filename"_input_yyyymmdd_hhmmss.log<br>
    All active GTINS are listed in the file active_gtins.txt. This file is used as input for GS1_Cloud_VIEW_GTINS.py
 5. View and analyze your results in a spreadsheet or database.
 
