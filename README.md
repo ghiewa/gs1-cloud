@@ -23,7 +23,7 @@ As the program might run for several hours in case of large input files it can b
 2. Refer to the correct filename in the file config.py.   
 3. Adjust the basic settings (as output language etc.) in the file config.py
 4. Run the program in the shell program of your OS (..>python GS1_Cloud_CHECK_GTINS.py) or a Python IDE.<br>
-   It will test about 35 GTINS per second. The program has been tested with up to 500.000 GTINS in one file.
+   The program has been tested with up to 1.500.000 GTINS in one file. The speed depends on the settings in the config file (poolsize and batchsize).
 5. Find the output in the directory "output" as "your filename"_check_yyyymmdd_hhmmss.csv.<br>
    Also a log file is created as "your filename"_check_yyyymmdd_hhmmss.log<br>
    The input file is copied to "your filename"_input_yyyymmdd_hhmmss.log<br>
@@ -33,7 +33,7 @@ As the program might run for several hours in case of large input files it can b
 **VIEW GS1_Cloud_VIEW_GTINS.py**<br>
 Please note:<br>
 The VIEW API is experimental and at the moment only available for GS1 member organisations.
-Until now you can only view items uploaded under your account. Therefor many active gtins (from other sources)
+At this moment you can only view items uploaded under your account. Therefor many active gtins (from other sources)
 give a 404 (not found) as result. These are listed in the log file.  
 
 1. Run the program in the shell program of your OS (..>python GS1_Cloud_VIEW_GTINS.py) or a Python IDE.
