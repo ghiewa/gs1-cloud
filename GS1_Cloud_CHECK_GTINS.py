@@ -72,7 +72,12 @@ if __name__ == "__main__":
     def check(GTIN_in):
         global checked, responses_batch, statistics
 
+        # URL for the production environment of GS1 Cloud
         url = "https://cloud.gs1.org/api/v1/products/%s/check" % GTIN_in
+
+        # URL for the test environment of GS1 Cloud
+        # If you want to use the test environment you have to change the API key the credentials file too
+        # url = "https://cloud.stg.gs1.org/api/v1/products/%s/check" % GTIN_in
 
         response = requests.request("GET", url, headers=headers)
         api_status_code = response.status_code
@@ -249,7 +254,7 @@ if __name__ == "__main__":
     print("\nStatistics")
     print("----------")
     for key in statistics.keys():
-        print(str(statistics[key]).zfill(6), key, messages.languages[config.output_language][key])
+        print(str(statistics[key]).zfill(7), key, messages.languages[config.output_language][key])
     print("\n")
 
     log.write('\n')
@@ -263,7 +268,7 @@ if __name__ == "__main__":
     log.write("\nStatistics \n")
     log.write("----------\n")
     for key in statistics.keys():
-        log.write("%s %s %s \n" % (str(statistics[key]).zfill(6), key, messages.languages[config.output_language][key]))
+        log.write("%s %s %s \n" % (str(statistics[key]).zfill(7), key, messages.languages[config.output_language][key]))
 
     for cntr in range(0, len(gtins)):
         saved_input.write("%s\n" % gtins[cntr])
