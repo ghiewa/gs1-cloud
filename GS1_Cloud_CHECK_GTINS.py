@@ -245,7 +245,7 @@ if __name__ == "__main__":
     sec = round((time.time() - starttime))
 
     print("All done.\n")
-    print("GTINS in input file: %s\n" % gtins_in_input)
+    print("Unique GTINS in input file: %s\n" % gtins_in_input)
     print("GTINS checked: %s\n" % checked)
     print("API requests without result: %s\n" % (gtins_in_input - checked))
     print("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
@@ -259,7 +259,7 @@ if __name__ == "__main__":
 
     log.write('\n')
     log.write("Pool size: %s\n" % config.poolsize)
-    log.write("GTINS in input file: %s\n" % gtins_in_input)
+    log.write("Unique GTINS in input file: %s\n" % gtins_in_input)
     log.write("GTINS checked: %s\n" % checked)
     log.write("API requests without result: %s\n" % (gtins_in_input - checked))
     log.write("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
