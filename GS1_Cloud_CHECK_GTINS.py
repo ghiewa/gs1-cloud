@@ -10,16 +10,17 @@
 import datetime
 import json
 import time
-from io import open
 import requests
-from queue import Queue
-from threading import Thread
 import base64
-from pathlib import Path
 import os
 import credentials
 import config
 import messages
+from io import open
+from queue import Queue
+from threading import Thread
+from pathlib import Path
+from statistics import mean, median
 
 
 class Worker(Thread):
@@ -70,7 +71,9 @@ if __name__ == "__main__":
 
     # Function to be executed in a thread
     def check(GTIN_in):
-        global checked, responses_batch, statistics
+        global checked, responses_batch, statistics, response_times
+
+        starttime_req = time.time()
 
         # URL for the production environment of GS1 Cloud
         url = "https://cloud.gs1.org/api/v1/products/%s/check" % GTIN_in
@@ -133,6 +136,9 @@ if __name__ == "__main__":
             else:
                 log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
 
+        sec_req = round((time.time() - starttime_req), 2)
+        response_times.append(sec_req)
+
         return
 
     """Start of main program"""
@@ -144,6 +150,7 @@ if __name__ == "__main__":
 
     gtins_in = []
     gtins = []
+    response_times = []
 
     gtins_in_input = 0
     checked = 0
@@ -233,24 +240,29 @@ if __name__ == "__main__":
         pool.map(check, batches[i])
         # Demonstrates that the main process waited for threads to complete
         pool.wait_completion()
-        sec = round((time.time() - starttime))
+        sec_job = round((time.time() - starttime))
         sec_batch = round((time.time() - starttime_batch))
         print("Finished batch %s: %s GTINS after %s (%s responses in %s seconds, %s per second). \n" % (i, len(batches[i]), str(
-            datetime.timedelta(seconds=sec)), responses_batch, sec_batch, round(responses_batch/max(sec_batch, 1), 1)))
+            datetime.timedelta(seconds=sec_job)), responses_batch, sec_batch, round(responses_batch/max(sec_batch, 1), 1)))
         log.write("Finished batch %s: %s GTINS after %s (%s responses in %s seconds, %s per second). \n" %
-                  (i, len(batches[i]), str(datetime.timedelta(seconds=sec)), responses_batch, sec_batch, round(responses_batch/max(sec_batch, 1), 1)))
+                  (i, len(batches[i]), str(datetime.timedelta(seconds=sec_job)), responses_batch, sec_batch, round(responses_batch/max(sec_batch, 1), 1)))
 
     gtins_in_input = len(gtins)
 
-    sec = round((time.time() - starttime))
+    sec_job = round((time.time() - starttime))
 
     print("All done.\n")
     print("Unique GTINS in input file: %s\n" % gtins_in_input)
     print("GTINS checked: %s\n" % checked)
     print("API requests without result: %s\n" % (gtins_in_input - checked))
-    print("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
+    print("Time: %s\n" % str(datetime.timedelta(seconds=sec_job)))
     if checked > 0:
-        print("Checks per second: %s\n" % round(checked/max(sec, 1), 1))
+        print("Checks per second: %s\n" % round(checked/max(sec_job, 1), 1))
+        print("Average response time per request: %s seconds\n" % round(mean(response_times), 2))
+        print("Median response time per request: %s seconds\n" % round(median(response_times), 2))
+        print("Minimum response time per request: %s seconds\n" % min(response_times))
+        print("Maximum response time per request: %s seconds\n" % max(response_times))
+
     print("\nStatistics")
     print("----------")
     for key in statistics.keys():
@@ -259,12 +271,18 @@ if __name__ == "__main__":
 
     log.write('\n')
     log.write("Pool size: %s\n" % config.poolsize)
+    log.write("Batchsize: %s\n" % config.batchsize)
     log.write("Unique GTINS in input file: %s\n" % gtins_in_input)
     log.write("GTINS checked: %s\n" % checked)
     log.write("API requests without result: %s\n" % (gtins_in_input - checked))
-    log.write("Time: %s\n" % str(datetime.timedelta(seconds=sec)))
+    log.write("Time: %s\n" % str(datetime.timedelta(seconds=sec_job)))
     if checked > 0:
-        log.write("Checks per second: %s\n" % round(checked / max(sec, 1), 1))
+        log.write("Checks per second: %s\n" % round(checked / max(sec_job, 1), 1))
+        log.write("Average response time per request: %s seconds\n" % round(mean(response_times), 2))
+        log.write("Median response time per request: %s seconds\n" % round(median(response_times), 2))
+        log.write("Minimum response time per request: %s seconds\n" % min(response_times))
+        log.write("Maximum response time per request: %s seconds\n" % max(response_times))
+
     log.write("\nStatistics \n")
     log.write("----------\n")
     for key in statistics.keys():
