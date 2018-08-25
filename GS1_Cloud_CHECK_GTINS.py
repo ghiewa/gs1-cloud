@@ -137,7 +137,9 @@ if __name__ == "__main__":
                 log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
 
         sec_req = round((time.time() - starttime_req), 2)
-        response_times.append(sec_req)
+
+        if api_status_code not in range(400, 600):
+            response_times.append(sec_req)
 
         return
 
@@ -258,9 +260,9 @@ if __name__ == "__main__":
     print("Time: %s\n" % str(datetime.timedelta(seconds=sec_job)))
     if checked > 0:
         print("Checks per second: %s\n" % round(checked/max(sec_job, 1), 1))
+        print("Minimum response time per request: %s seconds\n" % min(response_times))
         print("Average response time per request: %s seconds\n" % round(mean(response_times), 2))
         print("Median response time per request: %s seconds\n" % round(median(response_times), 2))
-        print("Minimum response time per request: %s seconds\n" % min(response_times))
         print("Maximum response time per request: %s seconds\n" % max(response_times))
 
     print("\nStatistics")
@@ -278,9 +280,9 @@ if __name__ == "__main__":
     log.write("Time: %s\n" % str(datetime.timedelta(seconds=sec_job)))
     if checked > 0:
         log.write("Checks per second: %s\n" % round(checked / max(sec_job, 1), 1))
+        log.write("Minimum response time per request: %s seconds\n" % min(response_times))
         log.write("Average response time per request: %s seconds\n" % round(mean(response_times), 2))
         log.write("Median response time per request: %s seconds\n" % round(median(response_times), 2))
-        log.write("Minimum response time per request: %s seconds\n" % min(response_times))
         log.write("Maximum response time per request: %s seconds\n" % max(response_times))
 
     log.write("\nStatistics \n")
