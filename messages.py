@@ -1,6 +1,6 @@
 
-# Dictionaries per language with all the messages of GS1 cloud
-# Extra languages shoud be added to the dictonary 'languages' at the end of this file
+# Dictionaries per language with all the return messages of GS1 cloud
+# Extra languages should be added to the dictonary 'languages' at the end of this file
 
 en = {
     "E001": "Integrity failed: The length of this GTIN is invalid.",
