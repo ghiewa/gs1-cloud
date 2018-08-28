@@ -70,12 +70,6 @@ if __name__ == "__main__":
     # Function to be executed in a thread
     def view(GTIN_in):
 
-        userstr = credentials.login['email'] + ':' + credentials.login['api_key']
-
-        usrPass = base64.b64encode(userstr.encode())
-
-        headers = {'Authorization': "Basic %s" % str(usrPass)[2:-1]}
-
         url = "https://cloud.gs1.org/api/v1/products/%s/" % GTIN_in
 
         response = requests.request("GET", url, headers=headers)
@@ -150,10 +144,10 @@ if __name__ == "__main__":
 
                 output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s \n'
                              % (gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln))
-            else:
-                if api_status_code == 401:
-                    print('Full authentication is required to access this resource')
-                log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
+        else:
+            if api_status_code == 401:
+                print('Full authentication is required to access this resource')
+            log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
 
         return
 
