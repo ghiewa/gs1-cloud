@@ -69,6 +69,13 @@ if __name__ == "__main__":
 
     # Function to be executed in a thread
     def view(GTIN_in):
+        ld = ""
+        ld_lang = ""
+        brand = ""
+        brand_lang = ""
+        company = ""
+        company_lang = ""
+        gpc = ""
 
         userstr = credentials.login['email'] + ':' + credentials.login['api_key']
 
@@ -100,15 +107,29 @@ if __name__ == "__main__":
                 else:
                     gtin = view_response[cntr]["gtin"]
                     tm = view_response[cntr]["targetMarket"]
-                    brand = view_response[cntr]["brand"][0]['value']
-                    brand_lang = view_response[cntr]["brand"][0]['language']
-                    ld = view_response[cntr]["labelDescription"][0]['value']
-                    ld_lang = view_response[cntr]["labelDescription"][0]['language']
-                    gpc = view_response[cntr]["gpc"]
-                    company = view_response[cntr]["companyName"][0]['value']
-                    company_lang = view_response[cntr]["companyName"][0]['language']
-                    ip_gln = view_response[cntr]["informationProviderGln"]
-                    ds_gln = view_response[cntr]["dataSourceGln"]
+                    gtin = view_response[cntr]["gtin"]
+                    tm = view_response[cntr]["targetMarket"]
+                    if view_response[cntr]["brand"] != []:
+                        brand = view_response[cntr]["brand"][0]['value']
+                        brand_lang = view_response[cntr]["brand"][0]['language']
+                        if brand_lang == "":
+                            brand_lang = 'xx'
+                    if view_response[cntr]["labelDescription"] != []:
+                        ld = view_response[cntr]["labelDescription"][0]['value']
+                        ld_lang = view_response[cntr]["labelDescription"][0]['language']
+                        if ld_lang == "":
+                            ld_lang = 'xx'
+                    if view_response[cntr]["gpc"] != []:
+                        gpc = view_response[cntr]["gpc"]
+                    if view_response[cntr]["companyName"] != []:
+                        company = view_response[cntr]["companyName"][0]['value']
+                        company_lang = view_response[cntr]["companyName"][0]['language']
+                        if company_lang == "":
+                            company_lang = 'xx'
+                    if view_response[cntr]["informationProviderGln"] != []:
+                        ip_gln = view_response[cntr]["informationProviderGln"]
+                    if view_response[cntr]["dataSourceGln"] != []:
+                        ds_gln = view_response[cntr]["dataSourceGln"]
 
                     if view_response[cntr]["imageUrlMedium"] != []:
                         image_url = view_response[cntr]["imageUrlMedium"][0]['value']
@@ -118,14 +139,6 @@ if __name__ == "__main__":
                     else:
                         image_url = ""
                         image_url_lang = ""
-
-            # message_out = next(x for x in messages if x[0] == messageId)[1]
-                    if ld_lang == "":
-                        ld_lang = 'xx'
-                    if brand_lang == "":
-                        brand_lang = 'xx'
-                    if company_lang == "":
-                        company_lang = 'xx'
 
                 print(gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln)
 
