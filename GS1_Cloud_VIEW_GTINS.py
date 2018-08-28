@@ -69,19 +69,6 @@ if __name__ == "__main__":
 
     # Function to be executed in a thread
     def view(GTIN_in):
-        ld = ""
-        ld_lang = ""
-        brand = ""
-        brand_lang = ""
-        company = ""
-        company_lang = ""
-        gpc = ""
-
-        userstr = credentials.login['email'] + ':' + credentials.login['api_key']
-
-        usrPass = base64.b64encode(userstr.encode())
-
-        headers = {'Authorization': "Basic %s" % str(usrPass)[2:-1]}
 
         url = "https://cloud.gs1.org/api/v1/products/%s/" % GTIN_in
 
@@ -98,6 +85,13 @@ if __name__ == "__main__":
             view_response = json.loads(response.text)
 
             for cntr in range(0, len(view_response)):
+                ld = ""
+                ld_lang = ""
+                brand = ""
+                brand_lang = ""
+                company = ""
+                company_lang = ""
+                gpc = ""
 
                 if 'exception' in view_response:
                     gtin = GTIN_in
@@ -121,6 +115,8 @@ if __name__ == "__main__":
                             ld_lang = 'xx'
                     if view_response[cntr]["gpc"] != []:
                         gpc = view_response[cntr]["gpc"]
+                        if gpc is None:
+                            gpc = ""
                     if view_response[cntr]["companyName"] != []:
                         company = view_response[cntr]["companyName"][0]['value']
                         company_lang = view_response[cntr]["companyName"][0]['language']
@@ -128,8 +124,12 @@ if __name__ == "__main__":
                             company_lang = 'xx'
                     if view_response[cntr]["informationProviderGln"] != []:
                         ip_gln = view_response[cntr]["informationProviderGln"]
+                        if ip_gln is None:
+                            ip_gln = ""
                     if view_response[cntr]["dataSourceGln"] != []:
                         ds_gln = view_response[cntr]["dataSourceGln"]
+                        if ds_gln is None:
+                            ds_gln = ""
 
                     if view_response[cntr]["imageUrlMedium"] != []:
                         image_url = view_response[cntr]["imageUrlMedium"][0]['value']
@@ -144,15 +144,22 @@ if __name__ == "__main__":
 
                 output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s \n'
                              % (gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln))
-            else:
-                if api_status_code == 401:
-                    print('Full authentication is required to access this resource')
-                log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
+        else:
+            if api_status_code == 401:
+                print('Full authentication is required to access this resource')
+            log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
 
         return
 
+    """ Start of the main program """
     gtins = []
     tested = 0
+
+    userstr = credentials.login['email'] + ':' + credentials.login['api_key']
+
+    usrPass = base64.b64encode(userstr.encode())
+
+    headers = {'Authorization': "Basic %s" % str(usrPass)[2:-1]}
 
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
