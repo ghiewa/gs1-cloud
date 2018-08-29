@@ -15,10 +15,10 @@ For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_
 4. If Python indicates that there are any missing packages use PIP to add them (e.g. ..>pip install requests).
 
 Please note:<br>
-As the program might run for several hours in case of large input files it can be preferable to install it on a server in stead of a personal laptop.  
+As the program might run for several hours in case of large input files it can be preferable to install it on a server in stead of a personal laptop. 
 
 **CHECK GS1_Cloud_CHECK_GTINS.py**
-1. Add your set of GTINS in the file "your filename".txt.<br>
+1. Add your set of GTINS in the file "your filename".txt in the directory "input"<br>
    The GTINS have to be 14 digits long, including leading zero's. The attached file gtins.txt will generate all of the current messages.
 2. Refer to the correct filename in the file config.py.   
 3. Adjust the basic settings (as output language etc.) in the file config.py
