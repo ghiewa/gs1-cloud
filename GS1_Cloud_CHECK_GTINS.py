@@ -16,6 +16,7 @@ import os
 import credentials
 import config
 import messages
+import shutil
 from io import open
 from queue import Queue
 from threading import Thread
@@ -162,11 +163,19 @@ if __name__ == "__main__":
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
 
+    if not os.path.exists('input'):
+        os.makedirs('input')
+
     if not os.path.exists('output'):
         os.makedirs('output')
 
-    output_file = config.input_file.split(".")
+    input_folder = Path("./input/")
     output_folder = Path("./output/")
+    output_file = config.input_file.split(".")
+
+    # copy gtins.txt to input directory for initial set up
+    if not os.path.isfile('./input/gtins.txt') and os.path.isfile('./gtins.txt'):
+        shutil.copy2('./gtins.txt', './input/')
 
     output_to_open = "%s_check_%s.csv" % (output_file[0], timestr)
     log_to_open = "%s_check_%s.log" % (output_file[0], timestr)
@@ -180,9 +189,9 @@ if __name__ == "__main__":
     # Write CSV Header
     output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
 
-    if not os.path.isfile('./' + config.input_file):
-        print("The input file %s is missing. \n" % config.input_file)
-        log.write("The input file %s is missing. \n" % config.input_file)
+    if not os.path.isfile('./input/' + config.input_file):
+        print("The input file %s is missing in directory input. \n" % config.input_file)
+        log.write("The input file %s is missing in directory input. \n" % config.input_file)
         exit()
 
     if config.output_language in messages.languages:
@@ -202,7 +211,7 @@ if __name__ == "__main__":
         log.write("\n")
 
     # Generate list of GTINS
-    with open(config.input_file, "r") as myfile:
+    with open(str(input_folder / config.input_file), "r") as myfile:
         for line in myfile:
             gtin = line.replace('\n', '')
             gtins_in.append(gtin)
