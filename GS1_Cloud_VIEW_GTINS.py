@@ -78,7 +78,8 @@ if __name__ == "__main__":
         # print(api_status_code)len(view_response)
 
         if api_status_code == 404:
-            print(GTIN_in + ' Not Found')
+            if config.output_to_screen:
+                print(GTIN_in + ' Not Found')
             log.write('%s|Not Found\n' % (GTIN_in))
 
         if api_status_code in (200, 400):
@@ -140,7 +141,8 @@ if __name__ == "__main__":
                         image_url = ""
                         image_url_lang = ""
 
-                print(gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln)
+                if config.output_to_screen:
+                    print(gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln)
 
                 output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s \n'
                              % (gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln))
