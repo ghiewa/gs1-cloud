@@ -276,7 +276,7 @@ if __name__ == "__main__":
 
     print("\nStatistics")
     print("----------")
-    for key in statistics.keys():
+    for key in sorted(statistics.keys()):
         print(str(statistics[key]).zfill(7), key, messages.languages[config.output_language][key])
     print("\n")
 
@@ -296,7 +296,7 @@ if __name__ == "__main__":
 
     log.write("\nStatistics \n")
     log.write("----------\n")
-    for key in statistics.keys():
+    for key in sorted(statistics.keys()):
         log.write("%s %s %s \n" % (str(statistics[key]).zfill(7), key, messages.languages[config.output_language][key]))
 
     for cntr in range(0, len(gtins)):
