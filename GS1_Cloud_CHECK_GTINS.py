@@ -299,6 +299,7 @@ if __name__ == "__main__":
     for key in sorted(statistics.keys()):
         log.write("%s %s %s \n" % (str(statistics[key]).zfill(7), key, messages.languages[config.output_language][key]))
 
+    # Save all unique GTINS in file
     for cntr in range(0, len(gtins)):
         saved_input.write("%s\n" % gtins[cntr])
 
