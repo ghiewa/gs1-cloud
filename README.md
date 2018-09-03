@@ -15,7 +15,7 @@ For more information  <a href="https://www.gs1.org/services/gs1-cloud" target="_
 4. If Python indicates that there are any missing packages use PIP to add them (e.g. ..>pip install requests).
 
 Please note:<br>
-As the program might run for several hours in case of large input files it can be preferable to install it on a server in stead of a personal laptop. 
+As the program might run for several hours in case of large input files it can be preferable to install it on a server in stead of a personal laptop.
 
 **CHECK GS1_Cloud_CHECK_GTINS.py**
 1. Add your set of GTINS in the file "your filename".txt in the directory "input"<br>
@@ -25,6 +25,7 @@ As the program might run for several hours in case of large input files it can b
 4. Run the program in the shell program of your OS (..>python GS1_Cloud_CHECK_GTINS.py) or a Python IDE.<br>
    The program has been tested with up to 1.500.000 GTINS in one file. The speed depends on the settings in the config file (poolsize and batchsize).
 5. Find the output in the directory "output" as "your filename"_check_yyyymmdd_hhmmss.csv.<br>
+   All invalid gtins are also listed "your filename"_check_invalid_yyyymmdd_hhmmss.csv. This is usefull in case of large datasets.
    Also a log file is created as "your filename"_check_yyyymmdd_hhmmss.log<br>
    The input file is copied to "your filename"_input_yyyymmdd_hhmmss.log<br>
    All active GTINS are listed in the file active_gtins.txt. This file is used as input for GS1_Cloud_VIEW_GTINS.py
