@@ -114,12 +114,17 @@ if __name__ == "__main__":
                 message_out = messages.languages[lang][messageId]
             else:
                 message_out = "Unknown messageId"
-                print("Unknown messageId")
+                print("Unknown messageId: %s" % messageId)
+                log.write("Unknown messageId: %s" % messageId)
 
             if config.output_to_screen:
                 print(api_status_code, status, gtin, messageId, message_out, gcp_company, company)
 
             output.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
+
+            # Write invalid GTINS in extra output file (usefull in case of large datasets)
+            if messageId not in ("S002", "S003", "S005"):
+                output_inval.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
 
             checked = checked + 1
             responses_batch = responses_batch + 1
@@ -178,16 +183,19 @@ if __name__ == "__main__":
         shutil.copy2('./gtins.txt', './input/')
 
     output_to_open = "%s_check_%s.csv" % (output_file[0], timestr)
+    output_invalid_gtins = "%s_check_invalid_%s.csv" % (output_file[0], timestr)
     log_to_open = "%s_check_%s.log" % (output_file[0], timestr)
     input_to_save = "%s_input_%s.txt" % (output_file[0], timestr)
 
     output = open(str(output_folder / output_to_open), "w", encoding='utf-8')
+    output_inval = open(str(output_folder / output_invalid_gtins), "w", encoding='utf-8')
     log = open(str(output_folder / log_to_open), "w", encoding='utf-8')
     saved_input = open(str(output_folder / input_to_save), "w", encoding='utf-8')
     active_gtins = open(str("active_gtins.txt"), "w", encoding='utf-8')
 
     # Write CSV Header
     output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
+    output_inval.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
 
     if not os.path.isfile('./input/' + config.input_file):
         print("The input file %s is missing in directory input. \n" % config.input_file)
@@ -304,6 +312,7 @@ if __name__ == "__main__":
         saved_input.write("%s\n" % gtins[cntr])
 
     output.close()
+    output_inval.close()
     myfile.close()
     log.close()
     active_gtins.close()
