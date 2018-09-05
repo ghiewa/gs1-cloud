@@ -168,6 +168,10 @@ if __name__ == "__main__":
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
 
+    # for the sample file no date-time is used
+    if config.input_file == "sample_gtins.txt":
+        timestr = "yyyymmdd_hhmmss"
+
     if not os.path.exists('input'):
         os.makedirs('input')
 
@@ -179,8 +183,8 @@ if __name__ == "__main__":
     output_file = config.input_file.split(".")
 
     # copy gtins.txt to input directory for initial set up
-    if not os.path.isfile('./input/gtins.txt') and os.path.isfile('./gtins.txt'):
-        shutil.copy2('./gtins.txt', './input/')
+    if not os.path.isfile('./input/sample_gtins.txt') and os.path.isfile('./sample_gtins.txt'):
+        shutil.copy2('./sample_gtins.txt', './input/')
 
     output_to_open = "%s_check_%s.csv" % (output_file[0], timestr)
     output_invalid_gtins = "%s_check_invalid_%s.csv" % (output_file[0], timestr)
