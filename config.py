@@ -1,7 +1,7 @@
 # Settings for GS1_Cloud_CHECK_GTINS.py and GS1_Cloud_VIEW_GTINS.py
 #
 # Choose the name of the inputfile here
-input_file = "gtins.txt"
+input_file = "sample_gtins.txt"
 
 # Choose output language here
 # You can find an overview of the available languages in the file messages.py
