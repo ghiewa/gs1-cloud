@@ -168,7 +168,7 @@ if __name__ == "__main__":
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
 
-    # for the sample file no date-time is used
+    # for the sample file no date-time stamp is used
     if config.input_file == "sample_gtins.txt":
         timestr = "yyyymmdd_hhmmss"
 
