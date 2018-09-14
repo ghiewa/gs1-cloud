@@ -1,27 +1,38 @@
-Finished batch 0: 15 GTINS after 0:00:02 (15 responses in 2 seconds, 7.5 per second). 
+Finished batch 0: 15 GTINS after 0:00:04 (15 responses in 4 seconds, 3.8 per second). 
 
 Pool size: 100
 Batchsize: 10000
 Unique GTINS in input file: 15
 GTINS checked: 15
 API requests without result: 0
-Time: 0:00:02
-Checks per second: 7.5
-Minimum response time per request: 1.41 seconds
-Average response time per request: 1.69 seconds
-Median response time per request: 1.71 seconds
-Maximum response time per request: 1.97 seconds
+Time: 0:00:04
+Checks per second: 3.8
+Minimum response time per request: 1.27 seconds
+Average response time per request: 2.32 seconds
+Median response time per request: 2.46 seconds
+Maximum response time per request: 3.33 seconds
 
 Statistics 
 ----------
- 1 E001 Integrity failed: The length of this GTIN is invalid. 
- 2 E002 Integrity failed: Incorrect check digit. 
- 1 E003 Integrity failed: String contains alphanumerical characters. 
- 1 E004 Incorrect number. That GS1 prefix(3 - digit country code) does not exist. 
- 1 E005 Incorrect number based on GS1 Prefix reserved for special use. 
- 1 E006 Incorrect number. That GS1 company prefix has not been assigned. 
- 1 S001 Unknown number, no information can be returned. 
- 3 S002 Unknown GTIN from a license issued to:  
- 1 S003 Active GTIN from a license issued to:  
- 2 S004 Inactive GTIN from a license issued to:  
- 1 S005 Active GTIN from a license issued to:  
+E001 Integrity failed: The length of this GTIN is invalid........................  1 
+
+E002 Integrity failed: Incorrect check digit.....................................  2 
+
+E003 Integrity failed: String contains alphanumerical characters.................  1 
+
+E004 Incorrect number. That GS1 prefix(3 - digit country code) does not exist....  1 
+
+E005 Incorrect number based on GS1 Prefix reserved for special use...............  1 
+
+E006 Incorrect number. That GS1 company prefix has not been assigned.............  1 
+
+S001 Unknown number, no information can be returned..............................  1 
+
+S002 Unknown GTIN from a license issued to: .....................................  3 
+
+S003 Active GTIN from a license issued to: ......................................  1 
+
+S004 Inactive GTIN from a license issued to: ....................................  2 
+
+S005 Active GTIN from a license issued to: ......................................  1 
+
