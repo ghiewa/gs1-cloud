@@ -230,8 +230,9 @@ if __name__ == "__main__":
 
     # Removing duplicates
     gtins = list(dict.fromkeys(gtins_in))
-    print("\n%s duplicates removed.\n" % (len(gtins_in)-len(gtins)))
-    log.write("\n%s duplicates removed.\n" % (len(gtins_in)-len(gtins)))
+    if (len(gtins_in)-len(gtins)) != 0:
+        print("\n%s duplicate(s) removed.\n" % (len(gtins_in)-len(gtins)))
+        log.write("\n%s duplicate(s) removed.\n" % (len(gtins_in)-len(gtins)))
     gtins_in.clear()
 
     # Instantiate a thread pool with n worker threads
@@ -289,7 +290,9 @@ if __name__ == "__main__":
     print("\nStatistics")
     print("----------")
     for key in sorted(statistics.keys()):
-        print(str(statistics[key]).zfill(7), key, messages.languages[config.output_language][key])
+        if statistics[key] == 0:
+            statistics[key] = '-'
+        print(str(statistics[key]).rjust(len(str(gtins_in_input)), ' '), key, messages.languages[config.output_language][key])
     print("\n")
 
     log.write('\n')
@@ -309,7 +312,9 @@ if __name__ == "__main__":
     log.write("\nStatistics \n")
     log.write("----------\n")
     for key in sorted(statistics.keys()):
-        log.write("%s %s %s \n" % (str(statistics[key]).zfill(7), key, messages.languages[config.output_language][key]))
+        if statistics[key] == 0:
+            statistics[key] = '-'
+        log.write("%s %s %s \n" % (str(statistics[key]).rjust(len(str(gtins_in_input)), ' '), key, messages.languages[config.output_language][key]))
 
     # Save all unique GTINS in file
     for cntr in range(0, len(gtins)):

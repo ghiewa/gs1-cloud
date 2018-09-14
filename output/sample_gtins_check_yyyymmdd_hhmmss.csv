@@ -1,16 +1,16 @@
 GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE 
-05060023977845|8|S003|Active GTIN from a license issued to: |Noble Desserts Holdings Ltd|| 
-00008965001209|8|S005|Active GTIN from a license issued to: |Walter R Tucker Enterprises Ltd.|Walter R Tucker Enterprises Ltd.|xx 
-00850835000030|7|S001|Unknown number, no information can be returned.||| 
-05412715513570|9|S004|Inactive GTIN from a license issued to: |TAMY BVBA|| 
-07613034534798|7|S002|Unknown GTIN from a license issued to: |Nestec SA|| 
-08713948833723|7|S002|Unknown GTIN from a license issued to: |Lagosse Chocolade B.V.|| 
-09610754037163|0|E006|Incorrect number. That GS1 company prefix has not been assigned.||| 
 0000000088384|0|E001|Integrity failed: The length of this GTIN is invalid.||| 
-02990101151054|0|E005|Incorrect number based on GS1 Prefix reserved for special use.||| 
-07569000766994|0|E004|Incorrect number. That GS1 prefix(3 - digit country code) does not exist.||| 
+08713948833723|7|S002|Unknown GTIN from a license issued to: |Lagosse Chocolade B.V.|| 
+00850835000030|7|S001|Unknown number, no information can be returned.||| 
 05765228199848|7|S002|Unknown GTIN from a license issued to: |Urtekram International A/S|| 
+09610754037163|0|E006|Incorrect number. That GS1 company prefix has not been assigned.||| 
+05412715513570|9|S004|Inactive GTIN from a license issued to: |TAMY BVBA|| 
+05060023977845|8|S003|Active GTIN from a license issued to: |Noble Desserts Holdings Ltd|| 
+07569000766994|0|E004|Incorrect number. That GS1 prefix(3 - digit country code) does not exist.||| 
+00008965001209|8|S005|Active GTIN from a license issued to: |Walter R Tucker Enterprises Ltd.|Walter R Tucker Enterprises Ltd.|xx 
 08713948833722|0|E002|Integrity failed: Incorrect check digit.||| 
-00000000088384|0|E002|Integrity failed: Incorrect check digit.||| 
 0506002397784k|0|E003|Integrity failed: String contains alphanumerical characters.||| 
+00000000088384|0|E002|Integrity failed: Incorrect check digit.||| 
+02990101151054|0|E005|Incorrect number based on GS1 Prefix reserved for special use.||| 
+07613034534798|7|S002|Unknown GTIN from a license issued to: |Nestec SA|| 
 00000080273790|9|S004|Inactive GTIN from a license issued to: |Assovo srl|| 

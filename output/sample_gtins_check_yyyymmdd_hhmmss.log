@@ -1,29 +1,27 @@
-
-0 duplicates removed.
-Finished batch 0: 15 GTINS after 0:00:01 (15 responses in 1 seconds, 15.0 per second). 
+Finished batch 0: 15 GTINS after 0:00:02 (15 responses in 2 seconds, 7.5 per second). 
 
 Pool size: 100
 Batchsize: 10000
 Unique GTINS in input file: 15
 GTINS checked: 15
 API requests without result: 0
-Time: 0:00:01
-Checks per second: 15.0
-Minimum response time per request: 1.0 seconds
-Average response time per request: 1.07 seconds
-Median response time per request: 1.06 seconds
-Maximum response time per request: 1.21 seconds
+Time: 0:00:02
+Checks per second: 7.5
+Minimum response time per request: 1.41 seconds
+Average response time per request: 1.69 seconds
+Median response time per request: 1.71 seconds
+Maximum response time per request: 1.97 seconds
 
 Statistics 
 ----------
-0000001 E001 Integrity failed: The length of this GTIN is invalid. 
-0000002 E002 Integrity failed: Incorrect check digit. 
-0000001 E003 Integrity failed: String contains alphanumerical characters. 
-0000001 E004 Incorrect number. That GS1 prefix(3 - digit country code) does not exist. 
-0000001 E005 Incorrect number based on GS1 Prefix reserved for special use. 
-0000001 E006 Incorrect number. That GS1 company prefix has not been assigned. 
-0000001 S001 Unknown number, no information can be returned. 
-0000003 S002 Unknown GTIN from a license issued to:  
-0000001 S003 Active GTIN from a license issued to:  
-0000002 S004 Inactive GTIN from a license issued to:  
-0000001 S005 Active GTIN from a license issued to:  
+ 1 E001 Integrity failed: The length of this GTIN is invalid. 
+ 2 E002 Integrity failed: Incorrect check digit. 
+ 1 E003 Integrity failed: String contains alphanumerical characters. 
+ 1 E004 Incorrect number. That GS1 prefix(3 - digit country code) does not exist. 
+ 1 E005 Incorrect number based on GS1 Prefix reserved for special use. 
+ 1 E006 Incorrect number. That GS1 company prefix has not been assigned. 
+ 1 S001 Unknown number, no information can be returned. 
+ 3 S002 Unknown GTIN from a license issued to:  
+ 1 S003 Active GTIN from a license issued to:  
+ 2 S004 Inactive GTIN from a license issued to:  
+ 1 S005 Active GTIN from a license issued to:  
