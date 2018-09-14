@@ -287,12 +287,18 @@ if __name__ == "__main__":
         print("Median response time per request: %s seconds\n" % round(median(response_times), 2))
         print("Maximum response time per request: %s seconds\n" % max(response_times))
 
+    max_mes_len = 0
+
+    for key in sorted(statistics.keys()):
+        if max_mes_len < len(messages.languages[config.output_language][key]):
+            max_mes_len = len(messages.languages[config.output_language][key])
+
     print("\nStatistics")
     print("----------")
     for key in sorted(statistics.keys()):
         if statistics[key] == 0:
             statistics[key] = '-'
-        print(str(statistics[key]).rjust(len(str(gtins_in_input)), ' '), key, messages.languages[config.output_language][key])
+        print(key, messages.languages[config.output_language][key].ljust(max_mes_len + 3, '.'), str(statistics[key]).rjust(len(str(gtins_in_input)), ' '), "\n")
     print("\n")
 
     log.write('\n')
@@ -314,7 +320,7 @@ if __name__ == "__main__":
     for key in sorted(statistics.keys()):
         if statistics[key] == 0:
             statistics[key] = '-'
-        log.write("%s %s %s \n" % (str(statistics[key]).rjust(len(str(gtins_in_input)), ' '), key, messages.languages[config.output_language][key]))
+        log.write("%s %s %s \n\n" % (key, messages.languages[config.output_language][key].ljust(max_mes_len + 3, '.'), str(statistics[key]).rjust(len(str(gtins_in_input)), ' ')))
 
     # Save all unique GTINS in file
     for cntr in range(0, len(gtins)):
