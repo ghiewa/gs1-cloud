@@ -16,7 +16,6 @@ import os
 import credentials
 import config
 import messages
-import shutil
 from io import open
 from queue import Queue
 from threading import Thread
@@ -124,7 +123,7 @@ if __name__ == "__main__":
 
             # Write invalid GTINS in extra output file (usefull in case of large datasets)
             if messageId not in ("S002", "S003", "S005"):
-                output_inval.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
+                output_invalid.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
 
             checked = checked + 1
             responses_batch = responses_batch + 1
@@ -182,24 +181,21 @@ if __name__ == "__main__":
     output_folder = Path("./output/")
     output_file = config.input_file.split(".")
 
-    # copy gtins.txt to input directory for initial set up
-    if not os.path.isfile('./input/sample_gtins.txt') and os.path.isfile('./sample_gtins.txt'):
-        shutil.copy2('./sample_gtins.txt', './input/')
-
     output_to_open = "%s_check_%s.csv" % (output_file[0], timestr)
     output_invalid_gtins = "%s_check_invalid_%s.csv" % (output_file[0], timestr)
     log_to_open = "%s_check_%s.log" % (output_file[0], timestr)
-    input_to_save = "%s_input_%s.txt" % (output_file[0], timestr)
+    input_to_save = "%s_unique.txt" % (output_file[0])
+    active_to_save = "%s_active.txt" % (output_file[0])
 
     output = open(str(output_folder / output_to_open), "w", encoding='utf-8')
-    output_inval = open(str(output_folder / output_invalid_gtins), "w", encoding='utf-8')
+    output_invalid = open(str(output_folder / output_invalid_gtins), "w", encoding='utf-8')
     log = open(str(output_folder / log_to_open), "w", encoding='utf-8')
-    saved_input = open(str(output_folder / input_to_save), "w", encoding='utf-8')
-    active_gtins = open(str("active_gtins.txt"), "w", encoding='utf-8')
+    saved_input = open(str(input_folder / input_to_save), "w", encoding='utf-8')
+    active_gtins = open(str(input_folder / active_to_save), "w", encoding='utf-8')
 
     # Write CSV Header
     output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
-    output_inval.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
+    output_invalid.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
 
     if not os.path.isfile('./input/' + config.input_file):
         print("The input file %s is missing in directory input. \n" % config.input_file)
@@ -223,8 +219,8 @@ if __name__ == "__main__":
         log.write("\n")
 
     # Generate list of GTINS
-    with open(str(input_folder / config.input_file), "r") as myfile:
-        for line in myfile:
+    with open(str(input_folder / config.input_file), "r") as input:
+        for line in input:
             gtin = line.replace('\n', '')
             gtins_in.append(gtin)
 
@@ -239,7 +235,6 @@ if __name__ == "__main__":
     pool = ThreadPool(config.poolsize)
 
     # Add the jobs in batches to the thread pool.
-
     def chunks(l, n):
         # For item i in a range that is a length of l,
         for i in range(0, len(l), n):
@@ -255,14 +250,12 @@ if __name__ == "__main__":
     if config.start_with_batch != 0:
         print('Starting with batch: %s \n' % config.start_with_batch)
 
-    # Jobs can be added via map() or add_task()
-    # pool.map(check, gtins[cnt])
-
     for i in range(0, len(batches)):
         starttime_batch = time.time()
         responses_batch = 0
+        # Add GTINS to hte threads
         pool.map(check, batches[i])
-        # Demonstrates that the main process waited for threads to complete
+        # The main process is waiting for threads to complete
         pool.wait_completion()
         sec_job = round((time.time() - starttime))
         sec_batch = round((time.time() - starttime_batch))
@@ -327,8 +320,8 @@ if __name__ == "__main__":
         saved_input.write("%s\n" % gtins[cntr])
 
     output.close()
-    output_inval.close()
-    myfile.close()
+    output_invalid.close()
+    input.close()
     log.close()
     active_gtins.close()
     saved_input.close()

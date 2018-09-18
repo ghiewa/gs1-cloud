@@ -108,12 +108,12 @@ if __name__ == "__main__":
                         brand = view_response[cntr]["brand"][0]['value']
                         brand_lang = view_response[cntr]["brand"][0]['language']
                         if brand_lang == "":
-                            brand_lang = 'xx'
+                            brand_lang = '-'
                     if view_response[cntr]["labelDescription"] != []:
                         ld = view_response[cntr]["labelDescription"][0]['value']
                         ld_lang = view_response[cntr]["labelDescription"][0]['language']
                         if ld_lang == "":
-                            ld_lang = 'xx'
+                            ld_lang = '-'
                     if view_response[cntr]["gpc"] != []:
                         gpc = view_response[cntr]["gpc"]
                         if gpc is None:
@@ -122,7 +122,7 @@ if __name__ == "__main__":
                         company = view_response[cntr]["companyName"][0]['value']
                         company_lang = view_response[cntr]["companyName"][0]['language']
                         if company_lang == "":
-                            company_lang = 'xx'
+                            company_lang = '-'
                     if view_response[cntr]["informationProviderGln"] != []:
                         ip_gln = view_response[cntr]["informationProviderGln"]
                         if ip_gln is None:
@@ -136,7 +136,7 @@ if __name__ == "__main__":
                         image_url = view_response[cntr]["imageUrlMedium"][0]['value']
                         image_url_lang = view_response[cntr]["imageUrlMedium"][0]['language']
                         if image_url_lang == "":
-                            image_url_lang = 'xx'
+                            image_url_lang = '-'
                     else:
                         image_url = ""
                         image_url_lang = ""
@@ -149,7 +149,8 @@ if __name__ == "__main__":
         else:
             if api_status_code == 401:
                 print('Full authentication is required to access this resource')
-            log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
+            if api_status_code != 404:
+                log.write('%s %s %s \n' % (GTIN_in, api_status_code, json.dumps(response.text)))
 
         return
 
@@ -166,13 +167,18 @@ if __name__ == "__main__":
     starttime = time.time()
     timestr = time.strftime("%Y%m%d_%H%M%S")
 
+    # for the sample file no date-time stamp is used
+    if config.input_file == "sample_gtins.txt":
+        timestr = "yyyymmdd_hhmmss"
+
     if not os.path.exists('output'):
         os.makedirs('output')
 
     output_folder = Path("./output/")
+    output_file = config.input_file.split(".")
 
-    output_to_open = "view_gtins_%s.csv" % timestr
-    log_to_open = "view_gtins_%s.log" % timestr
+    output_to_open = "%s_view_%s.csv" % (output_file[0], timestr)
+    log_to_open = "%s_view_%s.log" % (output_file[0], timestr)
 
     output = open(output_folder / output_to_open, "w", encoding='utf-8')
     log = open(output_folder / log_to_open, "w", encoding='utf-8')
@@ -180,11 +186,11 @@ if __name__ == "__main__":
     # Write CSV Header
     output.write("GTIN|TARGETMARKET|BRANDNAME|LANGUAGE|LABELDESCRIPTION|LANGUAGE|GPC|COMPANY|LANGUAGE|IMAGE|LANGUAGE|INFORMATIONPROVIDER|DATASOURCE \n")
 
-    if not os.path.isfile("active_gtins.txt"):
-        print("Please run GS1_Cloud_CHECK_GTINS.py first. In order to identify active GTINS and create the input file (active_gtins.txt).")
-        log.write("Please run GS1_Cloud_CHECK_GTINS.py first. In order to identify active GTINS and create the input file (active_gtins.txt)\n")
+    if not os.path.isfile('./input/' + output_file[0] + '_active.txt'):
+        print("Please run GS1_Cloud_CHECK_GTINS.py first, in order to identify active GTINS and create the input file (%s_active.txt)." % output_file[0])
+        log.write("Please run GS1_Cloud_CHECK_GTINS.py first, in order to identify active GTINS and create the input file (%s_active.txt)\n" % output_file[0])
     else:
-        with open("active_gtins.txt", "r") as myfile:
+        with open(str('./input/' + output_file[0] + '_active.txt'), "r") as myfile:
             for line in myfile:
                 gtin = line.replace('\n', '')
                 gtins.append(gtin)
@@ -194,14 +200,11 @@ if __name__ == "__main__":
     # Instantiate a thread pool with n worker threads
     pool = ThreadPool(config.poolsize)
 
-    # Add the jobs in bulk to the thread pool. Alternatively you could use
-    # `pool.add_task` to add single jobs. The code will block here, which
-    # makes it possible to cancel the thread pool with an exception when
-    # the currently running batch of workers is finished.
+    # Add the jobs in bulk to the thread pool.
     pool.map(view, gtins)
     pool.wait_completion()
 
-    # Demonstrates that the main process waited for threads to complete
+    # The main process is waiting for threads to complete
     sec = round((time.time() - starttime))
 
     print("Done")

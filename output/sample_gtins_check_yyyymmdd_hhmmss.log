@@ -1,16 +1,18 @@
-Finished batch 0: 15 GTINS after 0:00:04 (15 responses in 4 seconds, 3.8 per second). 
+
+6 duplicate(s) removed.
+Finished batch 0: 22 GTINS after 0:00:02 (22 responses in 2 seconds, 11.0 per second). 
 
 Pool size: 100
 Batchsize: 10000
-Unique GTINS in input file: 15
-GTINS checked: 15
+Unique GTINS in input file: 22
+GTINS checked: 22
 API requests without result: 0
-Time: 0:00:04
-Checks per second: 3.8
-Minimum response time per request: 1.27 seconds
-Average response time per request: 2.32 seconds
-Median response time per request: 2.46 seconds
-Maximum response time per request: 3.33 seconds
+Time: 0:00:02
+Checks per second: 11.0
+Minimum response time per request: 1.34 seconds
+Average response time per request: 1.56 seconds
+Median response time per request: 1.55 seconds
+Maximum response time per request: 1.76 seconds
 
 Statistics 
 ----------
@@ -30,7 +32,7 @@ S001 Unknown number, no information can be returned.............................
 
 S002 Unknown GTIN from a license issued to: .....................................  3 
 
-S003 Active GTIN from a license issued to: ......................................  1 
+S003 Active GTIN from a license issued to: ......................................  8 
 
 S004 Inactive GTIN from a license issued to: ....................................  2 
 
