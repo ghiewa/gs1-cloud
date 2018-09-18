@@ -80,7 +80,7 @@ if __name__ == "__main__":
         if api_status_code == 404:
             if config.output_to_screen:
                 print(GTIN_in + ' Not Found')
-            log.write('%s|Not Found\n' % (GTIN_in))
+            log.write('%s Not Found\n' % (GTIN_in))
 
         if api_status_code in (200, 400):
             view_response = json.loads(response.text)
