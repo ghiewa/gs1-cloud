@@ -190,7 +190,6 @@ if __name__ == "__main__":
     output = open(str(output_folder / output_to_open), "w", encoding='utf-8')
     output_invalid = open(str(output_folder / output_invalid_gtins), "w", encoding='utf-8')
     log = open(str(output_folder / log_to_open), "w", encoding='utf-8')
-    saved_input = open(str(input_folder / input_to_save), "w", encoding='utf-8')
     active_gtins = open(str(input_folder / active_to_save), "w", encoding='utf-8')
 
     # Write CSV Header
@@ -229,6 +228,12 @@ if __name__ == "__main__":
     if (len(gtins_in)-len(gtins)) != 0:
         print("\n%s duplicate(s) removed.\n" % (len(gtins_in)-len(gtins)))
         log.write("\n%s duplicate(s) removed.\n" % (len(gtins_in)-len(gtins)))
+
+        # Save all unique GTINS in file
+        saved_input = open(str(input_folder / input_to_save), "w", encoding='utf-8')
+        for cntr in range(0, len(gtins)):
+            saved_input.write("%s\n" % gtins[cntr])
+        saved_input.close()
     gtins_in.clear()
 
     # Instantiate a thread pool with n worker threads
@@ -315,13 +320,8 @@ if __name__ == "__main__":
             statistics[key] = '-'
         log.write("%s %s %s \n\n" % (key, messages.languages[config.output_language][key].ljust(max_mes_len + 3, '.'), str(statistics[key]).rjust(len(str(gtins_in_input)), ' ')))
 
-    # Save all unique GTINS in file
-    for cntr in range(0, len(gtins)):
-        saved_input.write("%s\n" % gtins[cntr])
-
     output.close()
     output_invalid.close()
     input.close()
     log.close()
     active_gtins.close()
-    saved_input.close()
