@@ -40,7 +40,7 @@ At this moment you can only view items uploaded under your account. Therefor man
 give a 404 (not found) as result. These are listed in the log file.  
 
 1. Run the Check program first in order to identify all the active GTINS.<br>
-2  Run the program in the shell program of your OS (..>python GS1_Cloud_VIEW_GTINS.py) or a Python IDE.<br>
+2. Run the program in the shell program of your OS (..>python GS1_Cloud_VIEW_GTINS.py) or a Python IDE.<br>
 3. Find the output in the directory output as "your filename"_view_yyyymmdd_hhmmss.csv.<br>
    Also a log file in the directory output is created as "your filename"_view_yyyymmdd_hhmmss.log<br>
 4. View and analyze your results in a spreadsheet or database.
