@@ -1,16 +1,23 @@
 GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE 
-00000080273790|9|S004|Inactive GTIN from a license issued to: |Assovo srl|| 
-08713948833723|7|S002|Unknown GTIN from a license issued to: |Lagosse Chocolade B.V.|| 
-05765228199848|7|S002|Unknown GTIN from a license issued to: |Urtekram International A/S|| 
-00000000088384|0|E002|Integrity failed: Incorrect check digit.||| 
-00850835000030|7|S001|Unknown number, no information can be returned.||| 
 07569000766994|0|E004|Incorrect number. That GS1 prefix(3 - digit country code) does not exist.||| 
-09610754037163|0|E006|Incorrect number. That GS1 company prefix has not been assigned.||| 
-00008965001209|8|S005|Active GTIN from a license issued to: |Walter R Tucker Enterprises Ltd.|Walter R Tucker Enterprises Ltd.|xx 
-05412715513570|9|S004|Inactive GTIN from a license issued to: |TAMY BVBA|| 
-05060023977845|8|S003|Active GTIN from a license issued to: |Noble Desserts Holdings Ltd|| 
-08713948833722|0|E002|Integrity failed: Incorrect check digit.||| 
-07613034534798|7|S002|Unknown GTIN from a license issued to: |Nestec SA|| 
+02990101151054|0|E005|Incorrect number based on GS1 Prefix reserved for special use.||| 
+08711776650444|8|S003|Active GTIN from a license issued to: |Weleda Benelux|| 
+08711776610172|8|S003|Active GTIN from a license issued to: |Weleda Benelux|| 
+00850835000030|7|S001|Unknown number, no information can be returned.||| 
 0506002397784k|0|E003|Integrity failed: String contains alphanumerical characters.||| 
 0000000088384|0|E001|Integrity failed: The length of this GTIN is invalid.||| 
-02990101151054|0|E005|Incorrect number based on GS1 Prefix reserved for special use.||| 
+08711776650338|8|S003|Active GTIN from a license issued to: |Weleda Benelux|| 
+08711776653438|8|S003|Active GTIN from a license issued to: |Weleda Benelux|| 
+05060023977845|8|S003|Active GTIN from a license issued to: |Noble Desserts Holdings Ltd|| 
+00000000088384|0|E002|Integrity failed: Incorrect check digit.||| 
+08713948833723|7|S002|Unknown GTIN from a license issued to: |Lagosse Chocolade B.V.|| 
+05412715513570|9|S004|Inactive GTIN from a license issued to: |TAMY BVBA|| 
+09610754037163|0|E006|Incorrect number. That GS1 company prefix has not been assigned.||| 
+00000080273790|9|S004|Inactive GTIN from a license issued to: |Assovo srl|| 
+08713948833722|0|E002|Integrity failed: Incorrect check digit.||| 
+08711776652240|8|S003|Active GTIN from a license issued to: |Weleda Benelux|| 
+08711776630149|8|S003|Active GTIN from a license issued to: |Weleda Benelux|| 
+08711776001246|8|S003|Active GTIN from a license issued to: |Weleda Benelux|| 
+00008965001209|8|S005|Active GTIN from a license issued to: |Walter R Tucker Enterprises Ltd.|Walter R Tucker Enterprises Ltd.|xx 
+07613034534798|7|S002|Unknown GTIN from a license issued to: |Nestec SA|| 
+05765228199848|7|S002|Unknown GTIN from a license issued to: |Urtekram International A/S|| 
