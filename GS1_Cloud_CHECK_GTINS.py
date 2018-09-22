@@ -70,10 +70,13 @@ class ThreadPool:
 if __name__ == "__main__":
 
     # Function to be executed in a thread
-    def check(GTIN_in):
+    def check(data_in):
         global checked, responses_batch, statistics, response_times
 
         starttime_req = time.time()
+
+        GTIN_in = data_in[:14]
+        GTIN_descr = data_in[15:]
 
         # URL for the production environment of GS1 Cloud
         url = "https://cloud.gs1.org/api/v1/products/%s/check" % GTIN_in
@@ -117,13 +120,13 @@ if __name__ == "__main__":
                 log.write("Unknown messageId: %s" % messageId)
 
             if config.output_to_screen:
-                print(api_status_code, status, gtin, messageId, message_out, gcp_company, company)
+                print(api_status_code, status, gtin, messageId, message_out, gcp_company, company, GTIN_descr)
 
-            output.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
+            output.write('%s|%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, GTIN_descr))
 
             # Write invalid GTINS in extra output file (usefull in case of large datasets)
             if messageId not in ("S002", "S003", "S005"):
-                output_invalid.write('%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang))
+                output_invalid.write('%s|%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, GTIN_descr))
 
             checked = checked + 1
             responses_batch = responses_batch + 1
@@ -155,7 +158,7 @@ if __name__ == "__main__":
 
     headers = {'Authorization': "Basic %s" % str(usrPass)[2:-1]}
 
-    gtins_in = []
+    data_in = []
     gtins = []
     response_times = []
 
@@ -193,8 +196,8 @@ if __name__ == "__main__":
     active_gtins = open(str(input_folder / active_to_save), "w", encoding='utf-8')
 
     # Write CSV Header
-    output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
-    output_invalid.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE \n")
+    output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|DESCRIPTION_IN_INPUT \n")
+    output_invalid.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|DESCRIPTION_IN_INPUT \n")
 
     if not os.path.isfile('./input/' + config.input_file):
         print("The input file %s is missing in directory input. \n" % config.input_file)
@@ -217,24 +220,24 @@ if __name__ == "__main__":
         log.write("You can update this setting in the file config.py. \n")
         log.write("\n")
 
-    # Generate list of GTINS
+    # Read input data
     with open(str(input_folder / config.input_file), "r") as input:
         for line in input:
-            gtin = line.replace('\n', '')
-            gtins_in.append(gtin)
+            row = line.replace('\n', '')
+            data_in.append(row)
 
     # Removing duplicates
-    gtins = list(dict.fromkeys(gtins_in))
-    if (len(gtins_in)-len(gtins)) != 0:
-        print("\n%s duplicate(s) removed.\n" % (len(gtins_in)-len(gtins)))
-        log.write("\n%s duplicate(s) removed.\n" % (len(gtins_in)-len(gtins)))
+    data_unique = list(set(data_in))
+    if (len(data_in)-len(data_unique)) != 0:
+        print("\n%s duplicate(s) removed.\n" % (len(data_in)-len(data_unique)))
+        log.write("\n%s duplicate(s) removed.\n" % (len(data_in)-len(data_unique)))
 
         # Save all unique GTINS in file
         saved_input = open(str(input_folder / input_to_save), "w", encoding='utf-8')
-        for cntr in range(0, len(gtins)):
-            saved_input.write("%s\n" % gtins[cntr])
+        for cntr in range(0, len(data_unique)):
+            saved_input.write("%s\n" % data_unique[cntr])
         saved_input.close()
-    gtins_in.clear()
+    data_in.clear()
 
     # Instantiate a thread pool with n worker threads
     pool = ThreadPool(config.poolsize)
@@ -247,10 +250,10 @@ if __name__ == "__main__":
             yield l[i:i+n]
 
     # Create a list that from the results of the function chunks:
-    batches = list(chunks(gtins, config.batchsize))
+    batches = list(chunks(data_unique, config.batchsize))
 
     print("Processing of file %s started. \n" % (config.input_file))
-    print("Dataset of %s GTINS split in %s batch(es) of %s GTINS.\n" % (len(gtins), len(batches), min(config.batchsize, len(gtins))))
+    print("Dataset of %s GTINS split in %s batch(es) of %s GTINS.\n" % (len(data_unique), len(batches), min(config.batchsize, len(gtins))))
 
     if config.start_with_batch != 0:
         print('Starting with batch: %s \n' % config.start_with_batch)
@@ -258,7 +261,7 @@ if __name__ == "__main__":
     for i in range(0, len(batches)):
         starttime_batch = time.time()
         responses_batch = 0
-        # Add GTINS to hte threads
+        # Add GTINS to the threads
         pool.map(check, batches[i])
         # The main process is waiting for threads to complete
         pool.wait_completion()
@@ -269,14 +272,15 @@ if __name__ == "__main__":
         log.write("Finished batch %s: %s GTINS after %s (%s responses in %s seconds, %s per second). \n" %
                   (i, len(batches[i]), str(datetime.timedelta(seconds=sec_job)), responses_batch, sec_batch, round(responses_batch/max(sec_batch, 1), 1)))
 
-    gtins_in_input = len(gtins)
+    gtins_in_input = len(data_unique)
 
     sec_job = round((time.time() - starttime))
 
     print("All done.\n")
     print("Unique GTINS in input file: %s\n" % gtins_in_input)
     print("GTINS checked: %s\n" % checked)
-    print("API requests without result: %s\n" % (gtins_in_input - checked))
+    if (gtins_in_input - checked) != 0:
+        print("API requests without result: %s\n" % (gtins_in_input - checked))
     print("Time: %s\n" % str(datetime.timedelta(seconds=sec_job)))
     if checked > 0:
         print("Checks per second: %s\n" % round(checked/max(sec_job, 1), 1))
@@ -304,7 +308,8 @@ if __name__ == "__main__":
     log.write("Batchsize: %s\n" % config.batchsize)
     log.write("Unique GTINS in input file: %s\n" % gtins_in_input)
     log.write("GTINS checked: %s\n" % checked)
-    log.write("API requests without result: %s\n" % (gtins_in_input - checked))
+    if (gtins_in_input - checked) != 0:
+        log.write("API requests without result: %s\n" % (gtins_in_input - checked))
     log.write("Time: %s\n" % str(datetime.timedelta(seconds=sec_job)))
     if checked > 0:
         log.write("Checks per second: %s\n" % round(checked / max(sec_job, 1), 1))
