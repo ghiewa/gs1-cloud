@@ -20,7 +20,7 @@ As the program might run for several hours in case of large input files it can b
 **CHECK GS1_Cloud_CHECK_GTINS.py**
 1. Perform a test run with the attached file sample_gtins.txt. This will generate all of the current messages.
 2. Add your set of GTINS in the file "your filename".txt in the directory "input"<br>
-   The GTINS have to be 14 digits long, including leading zero's.
+   The GTINS have to be 14 digits long, including leading zero's. The first 14 characters of a row have to be the GTIN. After that you can add the description of the GTIN.
 3. Refer to the correct filename in the file config.py.   
 4. Adjust the basic settings (as output language etc.) in the file config.py
 5. Run the program in the shell program of your OS (..>python GS1_Cloud_CHECK_GTINS.py) or a Python IDE.<br>
