@@ -1,4 +1,3 @@
--
 # Program to CHECK the validity of GTINS against the GS1 Cloud (BETA) CHECK API
 #
 # Author: Sjoerd Schaper (sjoerd.schaper@gs1.nl)
@@ -253,7 +252,7 @@ if __name__ == "__main__":
     batches = list(chunks(data_unique, config.batchsize))
 
     print("Processing of file %s started. \n" % (config.input_file))
-    print("Dataset of %s GTINS split in %s batch(es) of %s GTINS.\n" % (len(data_unique), len(batches), min(config.batchsize, len(gtins))))
+    print("Dataset of %s GTINS split in %s batch(es) of %s GTINS.\n" % (len(data_unique), len(batches), min(config.batchsize, len(data_unique))))
 
     if config.start_with_batch != 0:
         print('Starting with batch: %s \n' % config.start_with_batch)
