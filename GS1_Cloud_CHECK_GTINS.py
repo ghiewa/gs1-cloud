@@ -75,7 +75,7 @@ if __name__ == "__main__":
         starttime_req = time.time()
 
         GTIN_in = data_in[:14]
-        GTIN_descr = data_in[15:(config.max_length_description+15)]
+        GTIN_descr = data_in[15:]
 
         # URL for the production environment of GS1 Cloud
         url = "https://cloud.gs1.org/api/v1/products/%s/check" % GTIN_in
@@ -223,7 +223,7 @@ if __name__ == "__main__":
     with open(str(input_folder / config.input_file), "r") as input:
         for line in input:
             row = line.replace('\n', '')
-            data_in.append(row)
+            data_in.append(row[:(15+config.max_length_description)])
 
     # Removing duplicates
     data_unique = list(set(data_in))
