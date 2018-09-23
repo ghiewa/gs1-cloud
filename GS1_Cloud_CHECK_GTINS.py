@@ -1,4 +1,4 @@
-#
+-
 # Program to CHECK the validity of GTINS against the GS1 Cloud (BETA) CHECK API
 #
 # Author: Sjoerd Schaper (sjoerd.schaper@gs1.nl)
@@ -108,7 +108,7 @@ if __name__ == "__main__":
                     company = check_response["companyName"][0]["value"]
                     company_lang = check_response["companyName"][0]["language"]
                     if company_lang == "":
-                        company_lang = "xx"
+                        company_lang = "-"
                 if 'gcpCompanyName' in check_response:
                     gcp_company = check_response["gcpCompanyName"]
 
