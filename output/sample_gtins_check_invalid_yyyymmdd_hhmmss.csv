@@ -1,11 +1,11 @@
 GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|DESCRIPTION_IN_INPUT 
-09610754037163|7|S001|Unknown number, no information can be returned.||||Sample GTIN 09610754037163 
-0000000088384 |0|E001|Integrity failed: The length of this GTIN is invalid.||||Sample GTIN 00000000088384 
-00850835000030|7|S001|Unknown number, no information can be returned.||||Sample GTIN 00850835000030 
+07569000766994|0|E004|Incorrect number. That GS1 prefix(3 - digit country code) does not exist.||||Sample GTIN 07569000766994 
 08713948833722|0|E002|Integrity failed: Incorrect check digit.||||Sample GTIN 08713948833722 
+0000000088384 |0|E001|Integrity failed: The length of this GTIN is invalid.||||Sample GTIN 00000000088384 
+0506002397784k|0|E003|Integrity failed: String contains alphanumerical characters.||||Sample GTIN 0506002397784k 
+00850835000030|7|S001|Unknown number, no information can be returned.||||Sample GTIN 00850835000030 
 02990101151054|0|E005|Incorrect number based on GS1 Prefix reserved for special use.||||Sample GTIN 02990101151054 
 05412715513570|9|S004|Inactive GTIN from a license issued to: |TAMY BVBA|||Sample GTIN 05412715513570 
-07569000766994|0|E004|Incorrect number. That GS1 prefix(3 - digit country code) does not exist.||||Sample GTIN 07569000766994 
-00000080273790|9|S004|Inactive GTIN from a license issued to: |Assovo srl|||Sample GTIN 00000080273790 
-0506002397784k|0|E003|Integrity failed: String contains alphanumerical characters.||||Sample GTIN 0506002397784k 
 00000000088384|0|E002|Integrity failed: Incorrect check digit.||||Sample GTIN 00000000088384 
+09610754037163|7|S001|Unknown number, no information can be returned.||||Sample GTIN 09610754037163 
+00000080273790|9|S004|Inactive GTIN from a license issued to: |Assovo srl|||Sample GTIN 00000080273790 
