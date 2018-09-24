@@ -220,9 +220,12 @@ if __name__ == "__main__":
         log.write("\n")
 
     # Read input data
-    with open(str(input_folder / config.input_file), "r") as input:
+    with open(str(input_folder / config.input_file), "rb") as input:
         for line in input:
-            row = line.replace('\n', '')
+            row = line.decode('utf-8')
+            # Remove line breaks and tabs
+            for r in (("\n", ""), ("\t", " ")):
+                row = row.replace(*r)
             data_in.append(row[:(15+config.max_length_description)])
 
     # Removing duplicates
