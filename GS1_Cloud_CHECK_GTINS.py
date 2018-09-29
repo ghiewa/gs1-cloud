@@ -15,6 +15,7 @@ import os
 import credentials
 import config
 import messages
+import gs1_prefixes
 from io import open
 from queue import Queue
 from threading import Thread
@@ -94,6 +95,7 @@ if __name__ == "__main__":
             company = ""
             company_lang = ""
             gcp_company = ""
+            gs1_mo = ""
 
             if 'exception' in check_response:
                 gtin = GTIN_in
@@ -110,6 +112,12 @@ if __name__ == "__main__":
                         company_lang = "-"
                 if 'gcpCompanyName' in check_response:
                     gcp_company = check_response["gcpCompanyName"]
+                # Get the GS1 Member organisation
+                if gtin[0:6] == '000000':
+                    if gtin[6:9] in gs1_prefixes.prefix:
+                        gs1_mo = gs1_prefixes.prefix[gtin[6:9]]
+                elif gtin[1:4] in gs1_prefixes.prefix:
+                    gs1_mo = gs1_prefixes.prefix[gtin[1:4]]
 
             if messageId in messages.languages[lang]:
                 message_out = messages.languages[lang][messageId]
@@ -121,11 +129,11 @@ if __name__ == "__main__":
             if config.output_to_screen:
                 print(api_status_code, status, gtin, messageId, message_out, gcp_company, company, GTIN_descr)
 
-            output.write('%s|%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, GTIN_descr))
+            output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, gs1_mo, GTIN_descr))
 
             # Write invalid GTINS in extra output file (usefull in case of large datasets)
             if messageId not in ("S002", "S003", "S005"):
-                output_invalid.write('%s|%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, GTIN_descr))
+                output_invalid.write('%s|%s|%s|%s|%s|%s|%s|%s|%s \n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, gs1_mo, GTIN_descr))
 
             checked = checked + 1
             responses_batch = responses_batch + 1
@@ -195,8 +203,8 @@ if __name__ == "__main__":
     active_gtins = open(str(input_folder / active_to_save), "w", encoding='utf-8')
 
     # Write CSV Header
-    output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|DESCRIPTION_IN_INPUT \n")
-    output_invalid.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|DESCRIPTION_IN_INPUT \n")
+    output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n")
+    output_invalid.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n")
 
     if not os.path.isfile('./input/' + config.input_file):
         print("The input file %s is missing in directory input. \n" % config.input_file)
