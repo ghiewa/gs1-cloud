@@ -116,8 +116,16 @@ if __name__ == "__main__":
                 if gtin[0:6] == '000000':
                     if gtin[6:9] in gs1_prefixes.prefix:
                         gs1_mo = gs1_prefixes.prefix[gtin[6:9]]
+                elif gtin[1:6] in ('00001', '00002', '00003', '00004', '00005', '00006', '00007', '00008', '00009'):
+                    if gtin[1:6] in gs1_prefixes.prefix:
+                        gs1_mo = gs1_prefixes.prefix[gtin[1:6]]
+                elif gtin[1:5] in ('0001', '0002', '0003', '0004', '0005', '0006', '0007', '0008', '0009'):
+                    if gtin[1:5] in gs1_prefixes.prefix:
+                        gs1_mo = gs1_prefixes.prefix[gtin[1:5]]
                 elif gtin[1:4] in gs1_prefixes.prefix:
-                    gs1_mo = gs1_prefixes.prefix[gtin[1:4]]
+                    # Exclude Global Office GTIN-8
+                    if gtin[1:4] not in ('960', '961', '962', '963', '964', '965', '966', '967', '968', '969'):
+                        gs1_mo = gs1_prefixes.prefix[gtin[1:4]]
 
             if messageId in messages.languages[lang]:
                 message_out = messages.languages[lang][messageId]

@@ -1,21 +1,21 @@
 
 8 duplicate(s) removed.
-Finished batch 0: 22 GTINS after 0:00:02 (22 responses in 2 seconds, 11.0 per second). 
+Finished batch 0: 23 GTINS after 0:00:01 (23 responses in 1 seconds, 23.0 per second). 
 
 Pool size: 100
 Batchsize: 10000
-Unique GTINS in input file: 22
-GTINS checked: 22
-Time: 0:00:02
-Checks per second: 11.0
-Minimum response time per request: 1.14 seconds
-Average response time per request: 1.45 seconds
-Median response time per request: 1.5 seconds
-Maximum response time per request: 1.82 seconds
+Unique GTINS in input file: 23
+GTINS checked: 23
+Time: 0:00:01
+Checks per second: 23.0
+Minimum response time per request: 0.91 seconds
+Average response time per request: 1.16 seconds
+Median response time per request: 1.08 seconds
+Maximum response time per request: 1.47 seconds
 
 Statistics 
 ----------
-E001 Integrity failed: The length of this GTIN is invalid........................  1 
+E001 Integrity failed: The length of this GTIN is invalid........................  2 
 
 E002 Integrity failed: Incorrect check digit.....................................  2 
 

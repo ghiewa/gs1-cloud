@@ -1,7 +1,7 @@
 # Ignore everything
 *.txt
 *.bck
-output/
+.DS_Store
 
 # But not these files...
 
@@ -60,7 +60,7 @@ coverage.xml
 *.pot
 
 # Django stuff:
-*.log
+# *.log
 local_settings.py
 db.sqlite3
 
