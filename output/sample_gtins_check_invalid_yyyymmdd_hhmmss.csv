@@ -1,12 +1,11 @@
 GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT 
-07569000766994|0|E004|Incorrect number. That GS1 prefix(3 - digit country code) does not exist.|||||Sample GTIN 0756900076699 
-00000080273790|7|S001|Unknown number, no information can be returned.||||GS1 Italy|Sample GTIN 0000008027379 
-09610754037163|7|S001|Unknown number, no information can be returned.|||||Sample GTIN 0961075403716 
-0506002397784k|0|E003|Integrity failed: String contains alphanumerical characters.|||||Sample GTIN 0506002397784 
-05412715513570|9|S004|Inactive GTIN from a license issued to: |TAMY BVBA|||GS1 Belgium & Luxembourg|Sample GTIN 0541271551357 
-GTIN|0|E001|Integrity failed: The length of this GTIN is invalid.||||| 
-08713948833722|0|E002|Integrity failed: Incorrect check digit.|||||Sample GTIN 0871394883372 
-00850835000030|7|S001|Unknown number, no information can be returned.||||GS US|Sample GTIN 0085083500003 
-02990101151054|0|E005|Incorrect number based on GS1 Prefix reserved for special use.|||||Sample GTIN 0299010115105 
-00000000088384|0|E002|Integrity failed: Incorrect check digit.|||||Sample GTIN 0000000008838 
-0000000088384 |0|E001|Integrity failed: The length of this GTIN is invalid.|||||Sample GTIN 0000000008838 
+05412715513570|9|S004|Inactive GTIN from a license issued to: |TAMY BVBA|||GS1 Belgium & Luxembourg|Sample GTIN 05412715513570 
+08713948833722|0|E002|Integrity failed: Incorrect check digit.|||||Sample GTIN 08713948833722 
+0000000088384 |0|E001|Integrity failed: The length of this GTIN is invalid.|||||Sample GTIN 00000000088384 
+00850835000030|7|S001|Unknown number, no information can be returned.||||GS1 US|Sample GTIN 00850835000030 
+00000000088384|0|E002|Integrity failed: Incorrect check digit.|||||Sample GTIN 00000000088384 
+09610754037163|7|S001|Unknown number, no information can be returned.|||||Sample GTIN 09610754037163 
+02990101151054|0|E005|Incorrect number based on GS1 Prefix reserved for special use.|||||Sample GTIN 02990101151054 
+0506002397784k|0|E003|Integrity failed: String contains alphanumerical characters.|||||Sample GTIN 0506002397784k 
+07569000766994|0|E004|Incorrect number. That GS1 prefix(3 - digit country code) does not exist.|||||Sample GTIN 07569000766994 
+00000080273790|7|S001|Unknown number, no information can be returned.||||GS1 Italy|Sample GTIN 00000080273790 

@@ -1,24 +1,23 @@
 GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT 
-07569000766994|0|E004|Incorrect number. That GS1 prefix(3 - digit country code) does not exist.|||||Sample GTIN 0756900076699 
-08711776653438|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 0871177665343 
-00000080273790|7|S001|Unknown number, no information can be returned.||||GS1 Italy|Sample GTIN 0000008027379 
-09610754037163|7|S001|Unknown number, no information can be returned.|||||Sample GTIN 0961075403716 
-0506002397784k|0|E003|Integrity failed: String contains alphanumerical characters.|||||Sample GTIN 0506002397784 
-05765228199848|7|S002|Unknown GTIN from a license issued to: |Urtekram International A/S|||GS1 Denmark|Sample GTIN 0576522819984 
-08713948833723|7|S002|Unknown GTIN from a license issued to: |Lagosse Chocolade B.V.|||GS1 Netherlands|Sample GTIN 0871394883372 
-05412715513570|9|S004|Inactive GTIN from a license issued to: |TAMY BVBA|||GS1 Belgium & Luxembourg|Sample GTIN 0541271551357 
-08711776650338|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 0871177665033 
-08711776650444|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 0871177665044 
-GTIN|0|E001|Integrity failed: The length of this GTIN is invalid.||||| 
-08711776630149|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 0871177663014 
-08713948833722|0|E002|Integrity failed: Incorrect check digit.|||||Sample GTIN 0871394883372 
-00850835000030|7|S001|Unknown number, no information can be returned.||||GS US|Sample GTIN 0085083500003 
-00008965001209|8|S005|Active GTIN from a license issued to: |Walter R Tucker Enterprises Ltd.|Walter R Tucker Enterprises Ltd.|-|GS1 US|Sample GTIN 0000896500120 
-08711776001246|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 0871177600124 
-07613034534798|7|S002|Unknown GTIN from a license issued to: |Nestec SA|||GS1 Schweiz, Suisse, Svizzera|Sample GTIN 0761303453479 
-02990101151054|0|E005|Incorrect number based on GS1 Prefix reserved for special use.|||||Sample GTIN 0299010115105 
-00000000088384|0|E002|Integrity failed: Incorrect check digit.|||||Sample GTIN 0000000008838 
-0000000088384 |0|E001|Integrity failed: The length of this GTIN is invalid.|||||Sample GTIN 0000000008838 
-08711776652240|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 0871177665224 
-05060023977845|8|S003|Active GTIN from a license issued to: |Noble Desserts Holdings Ltd|||GS1 UK|Sample GTIN 0506002397784 
-08711776610172|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 0871177661017 
+05060023977845|8|S003|Active GTIN from a license issued to: |Noble Desserts Holdings Ltd|||GS1 UK|Sample GTIN 05060023977845 
+05412715513570|9|S004|Inactive GTIN from a license issued to: |TAMY BVBA|||GS1 Belgium & Luxembourg|Sample GTIN 05412715513570 
+08711776652240|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 08711776652240 
+08713948833722|0|E002|Integrity failed: Incorrect check digit.|||||Sample GTIN 08713948833722 
+07613034534798|7|S002|Unknown GTIN from a license issued to: |Nestec SA|||GS1 Schweiz, Suisse, Svizzera|Sample GTIN 07613034534798 
+00008965001209|8|S005|Active GTIN from a license issued to: |Walter R Tucker Enterprises Ltd.|Walter R Tucker Enterprises Ltd.|-|GS1 US|Sample GTIN 00008965001209 
+0000000088384 |0|E001|Integrity failed: The length of this GTIN is invalid.|||||Sample GTIN 00000000088384 
+00850835000030|7|S001|Unknown number, no information can be returned.||||GS1 US|Sample GTIN 00850835000030 
+00000000088384|0|E002|Integrity failed: Incorrect check digit.|||||Sample GTIN 00000000088384 
+08711776610172|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 08711776610172 
+08711776650338|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 08711776650338 
+05765228199848|7|S002|Unknown GTIN from a license issued to: |Urtekram International A/S|||GS1 Denmark|Sample GTIN 05765228199848 
+09610754037163|7|S001|Unknown number, no information can be returned.|||||Sample GTIN 09610754037163 
+08711776650444|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 08711776650444 
+02990101151054|0|E005|Incorrect number based on GS1 Prefix reserved for special use.|||||Sample GTIN 02990101151054 
+08711776630149|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 08711776630149 
+0506002397784k|0|E003|Integrity failed: String contains alphanumerical characters.|||||Sample GTIN 0506002397784k 
+08713948833723|7|S002|Unknown GTIN from a license issued to: |Lagosse Chocolade B.V.|||GS1 Netherlands|Sample GTIN 08713948833723 
+08711776001246|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 08711776001246 
+07569000766994|0|E004|Incorrect number. That GS1 prefix(3 - digit country code) does not exist.|||||Sample GTIN 07569000766994 
+08711776653438|8|S003|Active GTIN from a license issued to: |Weleda Benelux|||GS1 Netherlands|Sample GTIN 08711776653438 
+00000080273790|7|S001|Unknown number, no information can be returned.||||GS1 Italy|Sample GTIN 00000080273790 

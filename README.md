@@ -28,6 +28,7 @@ As the program might run for several hours in case of large input files it can b
 6. Find the output in the directory "output" as "your filename"_check_yyyymmdd_hhmmss.csv.<br>
    All invalid gtins are also listed "your filename"_check_invalid_yyyymmdd_hhmmss.csv. This is usefull in case of large datasets.
    Also a log file is created as "your filename"_check_yyyymmdd_hhmmss.log<br>
+   The delimiter character is | and the characterset of the output is UTF-8. 
 7. Two files are added to the input directory:   
    - All the unique GTINS from the input file are copied into to "your filename"_unique.txt<br>
    - All active GTINS are listed in the file "your filename"_active.txt. This file is used as input for GS1_Cloud_VIEW_GTINS.py
@@ -43,4 +44,5 @@ give a 404 (not found) as result. These are listed in the log file.
 2. Run the program in the shell program of your OS (..>python GS1_Cloud_VIEW_GTINS.py) or a Python IDE.<br>
 3. Find the output in the directory output as "your filename"_view_yyyymmdd_hhmmss.csv.<br>
    Also a log file in the directory output is created as "your filename"_view_yyyymmdd_hhmmss.log<br>
+   The delimiter character is | and the characterset of the output is UTF-8.
 4. View and analyze your results in a spreadsheet or database.
