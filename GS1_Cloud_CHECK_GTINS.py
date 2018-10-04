@@ -112,6 +112,7 @@ if __name__ == "__main__":
                         company_lang = "-"
                 if 'gcpCompanyName' in check_response:
                     gcp_company = check_response["gcpCompanyName"]
+
                 # Get the GS1 Member organisation
                 if gtin[0:6] == '000000':
                     # GTIN-8
@@ -239,6 +240,8 @@ if __name__ == "__main__":
         log.write("You can update this setting in the file config.py. \n")
         log.write("\n")
 
+    print("\nProcessing of file %s started. \n" % (config.input_file))
+
     # Read input data
     with open(str(input_folder / config.input_file), "rb") as input:
         for line in input:
@@ -276,7 +279,6 @@ if __name__ == "__main__":
     # Create a list that from the results of the function chunks:
     batches = list(chunks(data_unique, config.batchsize))
 
-    print("Processing of file %s started. \n" % (config.input_file))
     print("Dataset of %s GTINS split in %s batch(es) of %s GTINS.\n" % (len(data_unique), len(batches), min(config.batchsize, len(data_unique))))
 
     if config.start_with_batch != 0:
