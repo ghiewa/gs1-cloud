@@ -6,6 +6,7 @@ The GS1 Cloud will be the largest source of trusted product information in the w
 For more information <a href="https://www.gs1.org/services/gs1-cloud" target="_blank">GS1.org</a>.
 
 **Use cases**
+
 These programs have several use cases:
 - GS1 Member Organisations can check their catalogues and report this to their members.
 - Brandowners can check if all items in their assortment have valid GTINS.
