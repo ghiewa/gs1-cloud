@@ -242,6 +242,8 @@ if __name__ == "__main__":
 
     print("\nProcessing of file %s started. \n" % (config.input_file))
 
+    first_line = True
+
     # Read input data
     with open(str(input_folder / config.input_file), "rb") as input:
         for line in input:
@@ -251,7 +253,13 @@ if __name__ == "__main__":
                 row = row.replace(*r)
             if len(row) >= (15+config.max_length_description):
                 row = row[:(15+config.max_length_description)]
-            data_in.append(row)
+            """ Skip header from input file """
+            if first_line:
+                if row[0:14].isdigit():
+                    data_in.append(row)
+                first_line = False
+            else:
+                data_in.append(row)
 
     # Removing duplicates
     data_unique = list(set(data_in))

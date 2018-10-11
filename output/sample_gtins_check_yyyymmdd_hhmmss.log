@@ -1,19 +1,17 @@
 
 8 duplicate(s) removed.
-GTIN 404 "{\n  \"timestamp\" : \"2018-10-01T06:40:20.867Z\",\n  \"status\" : 404,\n  \"error\" : \"Not Found\",\n  \"message\" : \"No message available\",\n  \"path\" : \"//api/v1/products/GTIN%0D/check\"\n}" 
-Finished batch 0: 23 GTINS after 0:00:01 (22 responses in 1 seconds, 22.0 per second). 
+Finished batch 0: 22 GTINS after 0:00:02 (22 responses in 2 seconds, 11.0 per second). 
 
 Pool size: 100
 Batchsize: 10000
-Unique GTINS in input file: 23
+Unique GTINS in input file: 22
 GTINS checked: 22
-API requests without result: 1
-Time: 0:00:01
-Checks per second: 22.0
-Minimum response time per request: 1.08 seconds
-Average response time per request: 1.21 seconds
-Median response time per request: 1.18 seconds
-Maximum response time per request: 1.42 seconds
+Time: 0:00:02
+Checks per second: 11.0
+Minimum response time per request: 1.19 seconds
+Average response time per request: 1.32 seconds
+Median response time per request: 1.31 seconds
+Maximum response time per request: 1.62 seconds
 
 Statistics 
 ----------
@@ -29,7 +27,7 @@ E005 Incorrect number based on GS1 Prefix reserved for special use..............
 
 E006 Incorrect number. That GS1 company prefix has not been assigned.............  - 
 
-S001 Unknown number, no information can be returned..............................  3 
+S001 Unknown number, no information can be returned..............................  2 
 
 S002 Unknown GTIN from a license issued to: .....................................  3 
 
@@ -37,5 +35,5 @@ S003 Active GTIN from a license issued to: .....................................
 
 S004 Inactive GTIN from a license issued to: ....................................  1 
 
-S005 Active GTIN from a license issued to: ......................................  1 
+S005 Active GTIN from a license issued to: ......................................  2 
 
