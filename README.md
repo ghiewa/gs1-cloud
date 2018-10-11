@@ -5,8 +5,13 @@ Programs to CHECK the validity of GTINS/EAN codes against the GS1 Cloud (BETA) C
 The GS1 Cloud will be the largest source of trusted product information in the world, making it possible for businesses to meet the expectations of today’s digital world.
 For more information <a href="https://www.gs1.org/services/gs1-cloud" target="_blank">GS1.org</a>.
 
-**Install and usage notes**
+**Use cases**
+These programs have several use cases:
+- GS1 Member Organisations can check their catalogues and report this to their members.
+- Brandowners can check if all items in their assortment have valid GTINS.
+- Retailers, e-tailers, wholesales and market places can check if their suppliers and sellers use valid GTINS.
 
+**Install and usage notes**
 1. Install Python 3 <a href="https://www.python.org/" target="_blank">(www.python.org)</a> on your computer.
 2. Download the zip file with the program files on your local machine. Unpack and store it in a local map.
 3. Put your credentials (email and api-key) in the file credentials.py.
@@ -28,7 +33,7 @@ As the program might run for several hours in case of large input files it can b
 6. Find the output in the directory "output" as "your filename"_check_yyyymmdd_hhmmss.csv.<br>
    All invalid gtins are also listed "your filename"_check_invalid_yyyymmdd_hhmmss.csv. This is usefull in case of large datasets.
    Also a log file is created as "your filename"_check_yyyymmdd_hhmmss.log<br>
-   The delimiter character is | and the characterset of the output is UTF-8. 
+   The delimiter character is | and the characterset of the output is UTF-8.
 7. Two files are added to the input directory:   
    - All the unique GTINS from the input file are copied into to "your filename"_unique.txt<br>
    - All active GTINS are listed in the file "your filename"_active.txt. This file is used as input for GS1_Cloud_VIEW_GTINS.py
