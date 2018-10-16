@@ -216,8 +216,8 @@ if __name__ == "__main__":
     active_gtins = open(str(input_folder / active_to_save), "w", encoding='utf-8')
 
     # Write CSV Header
-    output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n")
-    output_invalid.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n")
+    output.write(config.csv_header)
+    output_invalid.write(config.csv_header)
 
     if not os.path.isfile('./input/' + config.input_file):
         print("The input file %s is missing in directory input. \n" % config.input_file)

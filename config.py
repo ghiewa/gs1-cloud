@@ -15,8 +15,15 @@ output_to_screen = False
 
 # Choose the maximum length of the description read from the input_file
 # If a large data file takes to much memory you can lower this value
-# Standard value = 50
-max_length_description = 50
+# Standard value = 100
+max_length_description = 100
+
+# Header for the output files
+# It's possible to change it to your own langugage here
+# You can also add extra colums to the in- and output bij using "|" as delimiter in the GTIN description
+# Add the titles to this header also using "|" as delimiter
+# Standard value = "GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n"
+csv_header = "GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n"
 
 # Poolsize is the number of threads used by the program
 # It can be set higher depending on your system and internet connection.
