@@ -76,7 +76,7 @@ if __name__ == "__main__":
         starttime_req = time.time()
 
         GTIN_in = data_in[:14]
-        GTIN_descr = data_in[15:-1]
+        GTIN_descr = data_in[15:]
 
         # URL for the production environment of GS1 Cloud
         url = "https://cloud.gs1.org/api/v1/products/%s/check" % GTIN_in

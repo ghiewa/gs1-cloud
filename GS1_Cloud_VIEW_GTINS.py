@@ -71,7 +71,7 @@ if __name__ == "__main__":
     def view(data_in):
 
         GTIN_in = data_in[:14]
-        GTIN_descr = data_in[15:-1]
+        GTIN_descr = data_in[15:]
 
         url = "https://cloud.gs1.org/api/v1/products/%s/" % GTIN_in
 
