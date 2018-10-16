@@ -8,10 +8,10 @@ Unique GTINS in input file: 22
 GTINS checked: 22
 Time: 0:00:01
 Checks per second: 22.0
-Minimum response time per request: 1.2 seconds
-Average response time per request: 1.28 seconds
-Median response time per request: 1.27 seconds
-Maximum response time per request: 1.35 seconds
+Minimum response time per request: 1.14 seconds
+Average response time per request: 1.23 seconds
+Median response time per request: 1.23 seconds
+Maximum response time per request: 1.31 seconds
 
 Statistics 
 ----------

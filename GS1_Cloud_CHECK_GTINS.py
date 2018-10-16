@@ -142,11 +142,11 @@ if __name__ == "__main__":
             if config.output_to_screen:
                 print(api_status_code, status, gtin, messageId, message_out, gcp_company, company, GTIN_descr)
 
-            output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s\n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, gs1_mo, GTIN_descr))
+            output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s\n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, gs1_mo, GTIN_descr.strip()))
 
             # Write invalid GTINS in extra output file (usefull in case of large datasets)
             if messageId not in ("S002", "S003", "S005"):
-                output_invalid.write('%s|%s|%s|%s|%s|%s|%s|%s|%s\n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, gs1_mo, GTIN_descr))
+                output_invalid.write('%s|%s|%s|%s|%s|%s|%s|%s|%s\n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, gs1_mo, GTIN_descr.strip()))
 
             checked = checked + 1
             responses_batch = responses_batch + 1
