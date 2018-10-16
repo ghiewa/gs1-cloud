@@ -76,7 +76,7 @@ if __name__ == "__main__":
         starttime_req = time.time()
 
         GTIN_in = data_in[:14]
-        GTIN_descr = data_in[15:-1]
+        GTIN_descr = data_in[15:]
 
         # URL for the production environment of GS1 Cloud
         url = "https://cloud.gs1.org/api/v1/products/%s/check" % GTIN_in
@@ -153,7 +153,7 @@ if __name__ == "__main__":
             statistics[messageId] = statistics[messageId] + 1
 
             if messageId in ("S003", "S005"):
-                active_gtins.write('%s\n' % (gtin))
+                active_gtins.write('%s %s\n' % (gtin, GTIN_descr))
         else:
             if api_status_code == 401:
                 print('Full authentication is required to access this resource')
@@ -216,8 +216,8 @@ if __name__ == "__main__":
     active_gtins = open(str(input_folder / active_to_save), "w", encoding='utf-8')
 
     # Write CSV Header
-    output.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n")
-    output_invalid.write("GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n")
+    output.write(config.csv_header)
+    output_invalid.write(config.csv_header)
 
     if not os.path.isfile('./input/' + config.input_file):
         print("The input file %s is missing in directory input. \n" % config.input_file)

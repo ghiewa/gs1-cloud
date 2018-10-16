@@ -68,7 +68,10 @@ class ThreadPool:
 if __name__ == "__main__":
 
     # Function to be executed in a thread
-    def view(GTIN_in):
+    def view(data_in):
+
+        GTIN_in = data_in[:14]
+        GTIN_descr = data_in[15:]
 
         url = "https://cloud.gs1.org/api/v1/products/%s/" % GTIN_in
 
@@ -142,10 +145,10 @@ if __name__ == "__main__":
                         image_url_lang = ""
 
                 if config.output_to_screen:
-                    print(gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln)
+                    print(gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln, GTIN_descr)
 
-                output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s \n'
-                             % (gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln))
+                output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s \n'
+                             % (gtin, tm, brand, brand_lang, ld, ld_lang, gpc, company, company_lang, image_url, image_url_lang, ip_gln, ds_gln, GTIN_descr))
         else:
             if api_status_code == 401:
                 print('Full authentication is required to access this resource')
@@ -156,6 +159,7 @@ if __name__ == "__main__":
 
     """ Start of the main program """
     gtins = []
+    data_in = []
     tested = 0
 
     userstr = credentials.login['email'] + ':' + credentials.login['api_key']
@@ -184,7 +188,7 @@ if __name__ == "__main__":
     log = open(output_folder / log_to_open, "w", encoding='utf-8')
 
     # Write CSV Header
-    output.write("GTIN|TARGETMARKET|BRANDNAME|LANGUAGE|LABELDESCRIPTION|LANGUAGE|GPC|COMPANY|LANGUAGE|IMAGE|LANGUAGE|INFORMATIONPROVIDER|DATASOURCE \n")
+    output.write("GTIN|TARGETMARKET|BRANDNAME|LANGUAGE|LABELDESCRIPTION|LANGUAGE|GPC|COMPANY|LANGUAGE|IMAGE|LANGUAGE|INFORMATIONPROVIDER|DATASOURCE|DESCRIPTION_IN_INPUT \n")
 
     if not os.path.isfile('./input/' + output_file[0] + '_active.txt'):
         print("Please run GS1_Cloud_CHECK_GTINS.py first, in order to identify active GTINS and create the input file (%s_active.txt)." % output_file[0])
@@ -193,7 +197,7 @@ if __name__ == "__main__":
         with open(str('./input/' + output_file[0] + '_active.txt'), "r") as myfile:
             for line in myfile:
                 gtin = line.replace('\n', '')
-                gtins.append(gtin)
+                data_in.append(gtin)
                 tested = tested + 1
         myfile.close()
 
@@ -201,7 +205,7 @@ if __name__ == "__main__":
     pool = ThreadPool(config.poolsize)
 
     # Add the jobs in bulk to the thread pool.
-    pool.map(view, gtins)
+    pool.map(view, data_in)
     pool.wait_completion()
 
     # The main process is waiting for threads to complete
