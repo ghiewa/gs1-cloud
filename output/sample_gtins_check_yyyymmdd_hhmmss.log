@@ -1,17 +1,17 @@
 
 8 duplicate(s) removed.
-Finished batch 0: 22 GTINS after 0:00:02 (22 responses in 2 seconds, 11.0 per second). 
+Finished batch 0: 22 GTINS after 0:00:01 (22 responses in 1 seconds, 22.0 per second). 
 
 Pool size: 100
 Batchsize: 10000
 Unique GTINS in input file: 22
 GTINS checked: 22
-Time: 0:00:02
-Checks per second: 11.0
-Minimum response time per request: 1.19 seconds
-Average response time per request: 1.32 seconds
-Median response time per request: 1.31 seconds
-Maximum response time per request: 1.62 seconds
+Time: 0:00:01
+Checks per second: 22.0
+Minimum response time per request: 1.2 seconds
+Average response time per request: 1.29 seconds
+Median response time per request: 1.27 seconds
+Maximum response time per request: 1.43 seconds
 
 Statistics 
 ----------

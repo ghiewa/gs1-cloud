@@ -153,7 +153,7 @@ if __name__ == "__main__":
             statistics[messageId] = statistics[messageId] + 1
 
             if messageId in ("S003", "S005"):
-                active_gtins.write('%s\n' % (gtin))
+                active_gtins.write('%s %s\n' % (gtin, GTIN_descr))
         else:
             if api_status_code == 401:
                 print('Full authentication is required to access this resource')
