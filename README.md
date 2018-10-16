@@ -5,8 +5,7 @@ Programs to CHECK the validity of GTINS/EAN codes against the GS1 Cloud (BETA) C
 The GS1 Cloud will be the largest source of trusted product information in the world, making it possible for businesses to meet the expectations of today’s digital world.
 For more information <a href="https://www.gs1.org/services/gs1-cloud" target="_blank">GS1.org</a>.
 
-**Use cases**
-
+**Use cases**<br>
 These programs have several use cases:
 - GS1 Member Organisations can check their catalogues and report this to their members.
 - Brandowners can check if all items in their assortment have valid GTINS.
