@@ -21,7 +21,7 @@ max_length_description = 100
 # Header for the output files
 # It's possible to change it to your own langugage here
 # You can also add extra colums to the in- and output bij using "|" as delimiter in the GTIN description
-# Add the titles to this header also using "|" as delimiter
+# Add the column titles to this header also using "|" as delimiter
 # Standard value = "GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n"
 csv_header = "GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n"
 

@@ -37,7 +37,8 @@ class Worker(Thread):
                 func(*args, **kargs)
             except Exception as e:
                 # An exception happened in this thread
-                print(e)
+                if config.output_to_screen:
+                    print(e)
             finally:
                 # Mark this task as done, whether an exception happened or not
                 self.tasks.task_done()
