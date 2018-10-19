@@ -23,7 +23,7 @@ max_length_description = 100
 # You can also add extra colums to the in- and output bij using "|" as delimiter in the GTIN description
 # Add the column titles to this header also using "|" as delimiter
 # Standard value = "GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n"
-csv_header = "GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT \n"
+csv_header = "GTIN|STATUS|MESSAGEID|REASON|GCP_COMPANY|COMPANY|LANGUAGE|GS1_MO|DESCRIPTION_IN_INPUT\n"
 
 # Poolsize is the number of threads used by the program
 # It can be set higher depending on your system and internet connection.

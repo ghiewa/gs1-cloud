@@ -76,7 +76,7 @@ if __name__ == "__main__":
         starttime_req = time.time()
 
         GTIN_in = data_in[:14]
-        GTIN_descr = data_in[15:]
+        GTIN_descr = data_in[15:].strip()
 
         # URL for the production environment of GS1 Cloud
         url = "https://cloud.gs1.org/api/v1/products/%s/check" % GTIN_in
@@ -142,11 +142,11 @@ if __name__ == "__main__":
             if config.output_to_screen:
                 print(api_status_code, status, gtin, messageId, message_out, gcp_company, company, GTIN_descr)
 
-            output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s\n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, gs1_mo, GTIN_descr.strip()))
+            output.write('%s|%s|%s|%s|%s|%s|%s|%s|%s\n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, gs1_mo, GTIN_descr))
 
             # Write invalid GTINS in extra output file (usefull in case of large datasets)
             if messageId not in ("S002", "S003", "S005"):
-                output_invalid.write('%s|%s|%s|%s|%s|%s|%s|%s|%s\n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, gs1_mo, GTIN_descr.strip()))
+                output_invalid.write('%s|%s|%s|%s|%s|%s|%s|%s|%s\n' % (gtin, status, messageId, message_out, gcp_company, company, company_lang, gs1_mo, GTIN_descr))
 
             checked = checked + 1
             responses_batch = responses_batch + 1
