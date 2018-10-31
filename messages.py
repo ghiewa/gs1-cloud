@@ -2,6 +2,20 @@
 # Dictionaries per language with all the return messages of GS1 cloud
 # Extra languages should be added to the dictonary 'languages' at the end of this file
 
+de = {
+    "E001": "Integritaetsfehler: Die Laenge dieser GTIN ist ungueltig.",
+    "E002": "Integritaetsfehler: Die Pruefziffer ist nicht korrekt",
+    "E003": "Integritaetsfehler: Die Zeichenkette enthaelt alphanumerische Zeichen",
+    "E004": "Falsche Nummer. Dieser GS1-Praefix (3-stelliger Laendercode) existiert nicht",
+    "E005": "Falsche Nummer. Dieser GS1-Praefix ist reserviert für spezielle Anwendungen",
+    "E006": "Falsche Nummer. Dieser GS1-Praefix wurde nicht vergeben",
+    "S001": "Unbekannte Nummer. Es kann keine Information gezeigt werden",
+    "S002": "Unbekannte GTIN einer Lizenz vergeben an: ",
+    "S003": "Aktive GTIN einer Lizenz vergeben an: ",
+    "S004": "Inaktive GTIN einer Lizenz vergeben an: ",
+    "S005": "Aktive GTIN einer Lizenz vergeben an: "
+}
+
 en = {
     "E001": "Integrity failed: The length of this GTIN is invalid.",
     "E002": "Integrity failed: Incorrect check digit.",
@@ -27,7 +41,8 @@ nl = {
     "S003": "Actieve GTIN van een licentie verleend aan: ",
     "S004": "Inactieve GTIN van een licentie verleend aan: ",
     "S005": "Actieve GTIN van een licentie verleend aan: "}
+    
 
 
 # Dictionary with the available languages
-languages = {"nl": nl, "en": en}
+languages = {"de": de,"en": en,"nl": nl}
