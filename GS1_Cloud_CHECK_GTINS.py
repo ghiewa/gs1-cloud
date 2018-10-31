@@ -287,7 +287,7 @@ if __name__ == "__main__":
     # Create a list that from the results of the function chunks:
     batches = list(chunks(data_unique, config.batchsize))
 
-    print("Dataset of %s GTINS split in %s batch(es) of %s GTINS.\n" % (len(data_unique), len(batches), min(config.batchsize, len(data_unique))))
+    print("Dataset of %s GTINS split in %s batch(es) of max. %s GTINS.\n" % (len(data_unique), len(batches), min(config.batchsize, len(data_unique))))
 
     if config.start_with_batch != 0:
         print('Starting with batch: %s \n' % config.start_with_batch)
