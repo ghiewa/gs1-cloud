@@ -287,7 +287,7 @@ if __name__ == "__main__":
     # Create a list that from the results of the function chunks:
     batches = list(chunks(data_unique, config.batchsize))
 
-    print("Dataset of %s GTINS split in %s batch(es) of %s GTINS.\n" % (len(data_unique), len(batches), min(config.batchsize, len(data_unique))))
+    print("Dataset of %s GTINS split in %s batch(es) of max. %s GTINS.\n" % (len(data_unique), len(batches), min(config.batchsize, len(data_unique))))
 
     if config.start_with_batch != 0:
         print('Starting with batch: %s \n' % config.start_with_batch)
@@ -300,11 +300,15 @@ if __name__ == "__main__":
         # The main process is waiting for threads to complete
         pool.wait_completion()
         sec_job = round((time.time() - starttime))
-        sec_batch = round((time.time() - starttime_batch))
+        sec_batch = round((time.time() - starttime_batch), 1)
         print("Finished batch %s: %s GTINS after %s (%s responses in %s seconds, %s per second). \n" % (i, len(batches[i]), str(
             datetime.timedelta(seconds=sec_job)), responses_batch, sec_batch, round(responses_batch/max(sec_batch, 1), 1)))
         log.write("Finished batch %s: %s GTINS after %s (%s responses in %s seconds, %s per second). \n" %
                   (i, len(batches[i]), str(datetime.timedelta(seconds=sec_job)), responses_batch, sec_batch, round(responses_batch/max(sec_batch, 1), 1)))
+        output.flush()
+        output_invalid.flush()
+        active_gtins.flush()
+        log.flush()
 
     gtins_in_input = len(data_unique)
 
