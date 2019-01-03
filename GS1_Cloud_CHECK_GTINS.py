@@ -15,7 +15,7 @@ import os
 import credentials
 import config
 import messages
-import gs1_prefixes
+import gs1_cloud_functions
 from io import open
 from queue import Queue
 from threading import Thread
@@ -74,6 +74,10 @@ if __name__ == "__main__":
         global checked, responses_batch, statistics, response_times
 
         starttime_req = time.time()
+        company = ""
+        company_lang = ""
+        gcp_company = ""
+        gs1_mo = ""
 
         GTIN_in = data_in[:14]
         GTIN_descr = data_in[15:].strip()
@@ -92,11 +96,6 @@ if __name__ == "__main__":
         if api_status_code in (200, 400):
             check_response = json.loads(response.text)
 
-            company = ""
-            company_lang = ""
-            gcp_company = ""
-            gs1_mo = ""
-
             if 'exception' in check_response:
                 gtin = GTIN_in
                 messageId = check_response["messageId"]
@@ -113,24 +112,7 @@ if __name__ == "__main__":
                 if 'gcpCompanyName' in check_response:
                     gcp_company = check_response["gcpCompanyName"]
 
-                # Get the GS1 Member organisation
-                if gtin[0:6] == '000000':
-                    # GTIN-8
-                    if gtin[6:9] in gs1_prefixes.prefix:
-                        gs1_mo = gs1_prefixes.prefix[gtin[6:9]]
-                elif gtin[1:6] in ('00001', '00002', '00003', '00004', '00005', '00006', '00007', '00008', '00009'):
-                    # GS1 US 00001 – 00009
-                    if gtin[1:6] in gs1_prefixes.prefix:
-                        gs1_mo = gs1_prefixes.prefix[gtin[1:6]]
-                elif gtin[1:5] in ('0001', '0002', '0003', '0004', '0005', '0006', '0007', '0008', '0009'):
-                    # GS1 US 0001 – 0009
-                    if gtin[1:5] in gs1_prefixes.prefix:
-                        gs1_mo = gs1_prefixes.prefix[gtin[1:5]]
-                elif gtin[1:4] in gs1_prefixes.prefix:
-                    # All other prefixes
-                    # Exclude Global Office GTIN-8 range when used as GTIN-14
-                    if gtin[1:4] not in ('960', '961', '962', '963', '964', '965', '966', '967', '968', '969'):
-                        gs1_mo = gs1_prefixes.prefix[gtin[1:4]]
+                gs1_mo = gs1_cloud_functions.get_gs1_mo(GTIN_in)
 
             if messageId in messages.languages[lang]:
                 message_out = messages.languages[lang][messageId]
@@ -288,6 +270,7 @@ if __name__ == "__main__":
     batches = list(chunks(data_unique, config.batchsize))
 
     print("Dataset of %s GTINS split in %s batch(es) of max. %s GTINS.\n" % (len(data_unique), len(batches), min(config.batchsize, len(data_unique))))
+    log.write("Dataset of %s GTINS split in %s batch(es) of max. %s GTINS.\n" % (len(data_unique), len(batches), min(config.batchsize, len(data_unique))))
 
     if config.start_with_batch != 0:
         print('Starting with batch: %s \n' % config.start_with_batch)
