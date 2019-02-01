@@ -1,5 +1,9 @@
 # Settings for GS1_Cloud_CHECK_GTINS.py and GS1_Cloud_VIEW_GTINS.py
 #
+# Choose the environment (production or staging) to run the program
+# Standard value = "PROD"
+environment = "PROD"
+#
 # Choose the name of the inputfile here
 # Standard value = "sample_gtins.txt"
 input_file = "sample_gtins.txt"

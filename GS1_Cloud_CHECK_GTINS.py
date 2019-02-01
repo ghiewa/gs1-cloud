@@ -82,12 +82,12 @@ if __name__ == "__main__":
         GTIN_in = data_in[:14]
         GTIN_descr = data_in[15:].strip()
 
-        # URL for the production environment of GS1 Cloud
-        url = "https://cloud.gs1.org/api/v1/products/%s/check" % GTIN_in
-
-        # URL for the test environment of GS1 Cloud
-        # If you want to use the test environment you have to change the API key the credentials file too
-        # url = "https://cloud.stg.gs1.org/api/v1/products/%s/check" % GTIN_in
+        if config.environment == "PROD":
+            # URL for the production environment of GS1 Cloud
+            url = "https://cloud.gs1.org/api/v1/products/%s/check" % GTIN_in
+        else:
+            # URL for the staging environment of GS1 Cloud
+            url = "https://cloud.stg.gs1.org/api/v1/products/%s/check" % GTIN_in
 
         response = requests.request("GET", url, headers=headers)
         api_status_code = response.status_code
